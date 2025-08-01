@@ -195,8 +195,6 @@
                     // Renderizar el contenido Markdown a HTML y procesar citas legales
                     let processedHtml = marked.parse(data.result);
                     processedHtml = processLegalCitations(processedHtml);
-                    // Renderizar el contenido Markdown a HTML y procesar citas legales
-                    let processedHtml = marked.parse(data.result);
                     processedHtml = processLegalCitations(processedHtml);
                     resultcontent.innerHTML = processedHtml;
                     resultcontent.classList.remove('hidden');
