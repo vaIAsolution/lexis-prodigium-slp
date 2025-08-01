@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta  charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEXIS PRODIGIUM - DEMO ACTUALIZADO</title>
+    <title>LEXIS PRODIGIUM - DEMO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,10 +13,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'brand-blue': { '50': '#e0f7fa', '100': '#b2ebf2', '200': '#80deea', '300': '#4dd0e1', '400': '#26c6da', '500': '#00bcd4', '600': '#00acc1', '700': '#0097a7', '800': '#00838f', '900': '#006064' },
-                        'brand-gray': { '50': '#f8f9fa', '100': '#e9ecef', '200': '#dee2e6', '300': '#ced4da', '400': '#adb5bd', '500': '#6c757d', '600': '#495057', '700': '#343a40', '800': '#212529', '900': '#1a1d20' }
+                        'brand-blue': { '500': '#00bcd4', '600': '#00acc1', '700': '#0097a7' },
+                        'brand-gray': { '100': '#f8f9fa', '700': '#343a40', '800': '#212529', '900': '#1a1d20' }
                     },
-                    fontFamily: { 'sans': ['Montserrat', 'sans-serif'], 'serif': ['Lora', 'serif'], 'body': ['Lato', 'sans-serif'] }
+                    fontFamily: { 'sans': ['Montserrat', 'sans-serif'], 'body': ['Lato', 'sans-serif'] }
                 }
             }
         }
@@ -25,351 +25,196 @@
         .demo-section { display: none; }
         .demo-section.active { display: block; }
         .prose { max-width: 100%; }
-        .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 { font-family: 'Montserrat', sans-serif; color: #212529; margin-top: 1.5em; margin-bottom: 0.5em; }
-        .prose p { font-family: 'Lato', sans-serif; line-height: 1.7; margin-bottom: 1em; }
-        .prose strong { font-weight: 700; }
-        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1em; }
-        .prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1em; }
-        .prose li { margin-bottom: 0.5em; }
-        .prose pre { background-color: #e9ecef; padding: 1em; border-radius: 0.5em; overflow-x: auto; }
-        .prose code { font-family: monospace; }
-        .prose blockquote { border-left: 4px solid #adb5bd; padding-left: 1em; color: #495057; font-style: italic; }
     </style>
 </head>
 <body class="bg-brand-gray-100 font-body text-brand-gray-800">
     <div class="flex h-screen bg-brand-gray-900">
         <!-- Sidebar -->
         <aside id="sidebar" class="w-64 bg-brand-gray-900 text-white flex-shrink-0 p-4 space-y-6 font-sans transition-all duration-300 -translate-x-full sm:translate-x-0">
-            <div class="text-center">
-                <h1 class="text-2xl font-bold text-brand-blue-400">LEXIS PRODIGIUM</h1>
+             <div class="text-center">
+                <h1 class="text-2xl font-bold text-brand-blue-500">LEXIS PRODIGIUM</h1>
             </div>
             <nav id="main-nav" class="space-y-2">
-                <a href="#" data-demo="vigilancia" class="nav-item active flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3"><path d="M21 6.5c-1.2 1.2-2.8 2-4.5 2S13.2 7.7 12 6.5c-1.2 1.2-2.8 2-4.5 2S4.2 7.7 3 6.5m18 6c-1.2 1.2-2.8 2-4.5 2s-3.3-.8-4.5-2c-1.2 1.2-2.8 2-4.5 2s-3.3-.8-4.5-2m18 6c-1.2 1.2-2.8 2-4.5 2s-3.3-.8-4.5-2c-1.2 1.2-2.8 2-4.5 2s-3.3-.8-4.5-2"></path></svg>
-                    Vigilancia Judicial
-                </a>
-                <a href="#" data-demo="strategy" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v8m-4-4h8"/></svg>
-                    Análisis de Estrategia
-                </a>
-                 <a href="#" data-demo="document" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                    Generador de Escritos
-                </a>
+                <a href="#" data-demo="vigilancia" class="nav-item active flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Vigilancia Judicial</a>
+                <a href="#" data-demo="strategy" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Análisis de Estrategia</a>
+                <a href="#" data-demo="document" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Generador de Escritos</a>
             </nav>
-            <div class="mt-auto p-4 text-center text-sm text-brand-gray-400" id="usage-container">
-                <div id="usage-message"></div>
+            <div class="mt-auto p-4 text-center text-sm text-gray-400" id="usage-container">
+                <div id="usage-message">Cargando usos...</div>
             </div>
         </aside>
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <header class="bg-white shadow-md p-4 flex justify-between items-center">
-                 <button id="menu-btn" class="sm:hidden text-brand-gray-600 hover:text-brand-gray-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                </button>
-                <div class="flex items-center space-x-4">
-                    <span class="font-semibold px-3 py-1 bg-green-200 text-green-800 rounded-full text-sm">DEMO EN VIVO</span>
-                </div>
+                 <button id="menu-btn" class="sm:hidden text-brand-gray-700">Menu</button>
+                 <span class="font-semibold px-3 py-1 bg-green-200 text-green-800 rounded-full text-sm">DEMO EN VIVO</span>
             </header>
 
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-brand-gray-100 p-6">
-                
+            <main class="flex-1 overflow-y-auto bg-brand-gray-100 p-6">
                 <!-- Universal Result/Spinner Container -->
                 <div id="result-container" class="max-w-4xl mx-auto hidden">
-                    <div id="spinner" class="flex justify-center items-center p-10">
-                        <svg class="animate-spin -ml-1 mr-3 h-10 w-10 text-brand-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span class="text-xl text-brand-gray-700">Consultando a la IA...</span>
-                    </div>
-                    <div id="error-message" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md" role="alert">
-                        <p class="font-bold">Error</p>
-                        <p id="error-text"></p>
-                    </div>
+                    <div id="spinner" class="flex justify-center items-center p-10">Cargando...</div>
+                    <div id="error-message" class="hidden bg-red-100 p-4"></div>
                     <div id="result-content" class="hidden bg-white p-6 rounded-lg shadow-lg prose"></div>
-                    <div id="sources-container" class="hidden bg-gray-100 p-6 mt-4 rounded-lg shadow-lg prose"></div>
-                    <div id="download-buttons" class="mt-4 text-right hidden">
-                        <button id="download-txt-btn" class="bg-brand-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-brand-blue-700 transition duration-300">Descargar TXT</button>
-                    </div>
                 </div>
 
-                <!-- Vigilancia Judicial Demo -->
+                <!-- Demos -->
                 <section id="demo-vigilancia" class="demo-section active">
-                    <div class="max-w-4xl mx-auto">
-                        <div class="bg-white shadow-lg rounded-lg">
-                            <div class="p-6 border-b"><h2 class="text-2xl font-bold text-brand-gray-800 font-sans">Vigilancia de Criterios Judiciales</h2><p class="text-brand-gray-600 mt-1">Buscar tesis, jurisprudencia y actualizaciones relevantes.</p></div>
-                            <div class="p-6">
-                                <div class="mb-4">
-                                    <label for="vigilancia-query" class="block text-sm font-bold text-brand-gray-700 mb-2">¿Qué desea buscar en el Semanario Judicial?</label>
-                                    <input type="text" id="vigilancia-query" class="w-full px-3 py-2 border border-brand-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Ej: caducidad de la instancia jalisco, alimentos cdmx 2024">
-                                </div>
-                                <button id="run-vigilancia" class="w-full bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition duration-300 text-lg">Buscar</button>
-                            </div>
-                        </div>
+                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+                        <h2 class="text-2xl font-bold">Vigilancia de Criterios Judiciales</h2>
+                        <input type="text" id="vigilancia-query" class="w-full mt-4 p-2 border rounded-md" placeholder="Ej: caducidad de la instancia jalisco">
+                        <button id="run-vigilancia" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Buscar</button>
                     </div>
                 </section>
-
-                <!-- Strategy Demo -->
                 <section id="demo-strategy" class="demo-section">
-                     <div class="max-w-4xl mx-auto">
-                        <div class="bg-white shadow-lg rounded-lg">
-                            <div class="p-6 border-b"><h2 class="text-2xl font-bold text-brand-gray-800 font-sans">Análisis de Estrategia de Caso</h2><p class="text-brand-gray-600 mt-1">Obtenga un análisis FODA para su caso.</p></div>
-                            <div class="p-6">
-                                <div class="mb-4">
-                                    <label for="strategy-context" class="block text-sm font-bold text-brand-gray-700 mb-2">Resumen de los hechos y estado actual del caso:</label>
-                                    <textarea id="strategy-context" rows="8" class="w-full px-3 py-2 border border-brand-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Ej: Mi cliente, Juan Pérez, fue demandado por incumplimiento de contrato de arrendamiento. La contraparte alega falta de pago de 3 meses de renta..."></textarea>
-                                </div>
-                                <button id="run-strategy" class="w-full bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition duration-300 text-lg">Analizar Estrategia</button>
-                            </div>
-                        </div>
+                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+                         <h2 class="text-2xl font-bold">Análisis de Estrategia de Caso</h2>
+                         <textarea id="strategy-context" rows="8" class="w-full mt-4 p-2 border rounded-md" placeholder="Resumen de los hechos..."></textarea>
+                         <button id="run-strategy" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Analizar</button>
                     </div>
                 </section>
-                
-                <!-- Document Demo -->
                 <section id="demo-document" class="demo-section">
-                     <div class="max-w-4xl mx-auto">
-                        <div class="bg-white shadow-lg rounded-lg">
-                            <div class="p-6 border-b"><h2 class="text-2xl font-bold text-brand-gray-800 font-sans">Generador de Escritos</h2><p class="text-brand-gray-600 mt-1">Cree borradores de documentos legales.</p></div>
-                            <div class="p-6">
-                                <div class="mb-4">
-                                    <label for="document-query" class="block text-sm font-bold text-brand-gray-700 mb-2">¿Qué documento necesita generar?</label>
-                                    <input type="text" id="document-query" class="w-full px-3 py-2 border border-brand-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Ej: Demanda inicial de divorcio incausado, Contrato de prestación de servicios profesionales">
-                                </div>
-                                <div class="mb-4">
-                                    <label for="document-context" class="block text-sm font-bold text-brand-gray-700 mb-2">Proporcionar los detalles y datos clave:</label>
-                                    <textarea id="document-context" rows="8" class="w-full px-3 py-2 border border-brand-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue-500" placeholder="Ej: Actor: María López. Demandado: Pedro Ramírez. Fecha de matrimonio: 15/03/2010. Domicilio conyugal: Av. Siempre Viva 123, CDMX. No hay hijos..."></textarea>
-                                </div>
-                                
-                                <button id="run-document" class="w-full bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition duration-300 text-lg">Generar Documento</button>
-                            </div>
-                        </div>
+                     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+                        <h2 class="text-2xl font-bold">Generador de Escritos</h2>
+                        <input type="text" id="document-query" class="w-full mt-4 p-2 border rounded-md" placeholder="Ej: Demanda inicial de divorcio">
+                        <textarea id="document-context" rows="6" class="w-full mt-4 p-2 border rounded-md" placeholder="Detalles y datos clave..."></textarea>
+                        <button id="run-document" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Generar</button>
                     </div>
                 </section>
-
-            <div id="ai-disclaimer" class="max-w-4xl mx-auto mt-8 p-4 bg-brand-gray-200 text-brand-gray-700 rounded-lg text-sm text-center">
-                    <p>LEXIS PRODIGIUM es una herramienta de asistencia basada en Inteligencia Artificial. La información proporcionada debe ser siempre verificada por un profesional del derecho y no constituye asesoría legal.</p>
-                </div>
             </main>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Constantes y Variables ---
             const API_URL = '/api/proxy';
+            const MAX_USES = 5;
+            let isLoading = false;
 
-            const navItems = document.querySelectorAll('.nav-item');
-            const demoSections = document.querySelectorAll('.demo-section');
-            const menuBtn = document.getElementById('menu-btn');
-            const sidebar = document.getElementById('sidebar');
+            // --- Selectores de Elementos ---
+            const usageMessage = document.getElementById('usage-message');
+            const allButtons = document.querySelectorAll('button[id^="run-"]');
 
             const resultContainer = document.getElementById('result-container');
             const spinner = document.getElementById('spinner');
             const resultcontent = document.getElementById('result-content');
-            const sourcesContainer = document.getElementById('sources-container');
             const errorMessage = document.getElementById('error-message');
-            const errorText = document.getElementById('error-text');
-            const downloadButtons = document.getElementById('download-buttons');
-            const downloadTxtBtn = document.getElementById('download-txt-btn');
-            const runVigilanciaBtn = document.getElementById('run-vigilancia');
-            const runStrategyBtn = document.getElementById('run-strategy');
-            const runDocumentBtn = document.getElementById('run-document');
-            const usageMessage = document.getElementById('usage-message');
 
-            // Generate or retrieve a unique client ID
-            let clientId = localStorage.getItem('lexisProdigiumClientId');
-            if (!clientId) {
-                clientId = crypto.randomUUID(); // Generate a UUID
-                localStorage.setItem('lexisProdigiumClientId', clientId);
-            }
-            // Display a static message about the usage limit. The actual limit enforcement is now server-side.
-            usageMessage.innerHTML = `<p class="font-bold">Límite de 5 usos.</p><p>Contacte a ventas para una demo completa.</p>`;
+            // --- Funciones Principales ---
 
-            // Navigation
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navItems.forEach(i => i.classList.remove('active', 'bg-brand-blue-600'));
-                    this.classList.add('active', 'bg-brand-blue-600');
-                    const demoId = this.getAttribute('data-demo');
-                    demoSections.forEach(section => {
-                        if (section.id === 'demo-' + demoId) {
-                            section.classList.add('active');
-                        } else {
-                            section.classList.remove('active');
-                        }
-                    });
-                    resultContainer.classList.add('hidden');
-                    resultcontent.classList.add('hidden');
-                    sourcesContainer.classList.add('hidden');
-                    spinner.classList.add('hidden');
-                    errorMessage.classList.add('hidden');
-                });
-            });
-
-            // Mobile menu
-            menuBtn.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
-
-            // Function to convert Markdown to HTML, now with special handling for verification guidance
-            function markdownToHtml(text) {
-                let html = text
-                    .replace(/\n/g, '<br>')
-                    .replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-brand-blue-600 hover:underline">$1</a>');
-
-                // Specific handling for "Para Verificar esta Información:" section
-                const verificationMatch = markdown.match(/(?:### |\*\*)Para Verificar esta Información(?::|\*\*):([\s\S]*)/);
-                const match = html.match(verificationSectionRegex);
-
-                if (match) {
-                    const beforeVerification = html.substring(0, match.index);
-                    const verificationContent = match[2];
-
-                    let verificationHtml = '<h3>Para Verificar esta Información:</h3><ul>';
-                    const lines = verificationContent.split('<br>').filter(line => line.trim().startsWith('*'));
-
-                    lines.forEach(line => {
-                        const phraseMatch = line.match(/:\s*'([^']+)'/); // Extracts the phrase in single quotes
-                        const portalMatch = line.match(/\*\*([^\*]+)\*\*/); // Extracts the portal name in bold
-
-                        let searchPhrase = phraseMatch ? phraseMatch[1].trim() : '';
-                        let portalName = portalMatch ? portalMatch[1].trim() : '';
-                        let searchBaseUrl = '';
-
-                        if (portalName.includes('DOF')) {
-                            searchBaseUrl = `https://www.google.com/search?q=${encodeURIComponent(searchPhrase + ' site:dof.gob.mx')}`;
-                        } else if (portalName.includes('SCJN')) {
-                            searchBaseUrl = `https://www.google.com/search?q=${encodeURIComponent(searchPhrase + ' site:scjn.gob.mx')}`;
-                        } else if (portalName.includes('San Luis Potosí')) {
-                            searchBaseUrl = `https://www.google.com/search?q=${encodeURIComponent(searchPhrase + ' site:congresoslp.gob.mx')}`;
-                        } else {
-                            searchBaseUrl = `https://www.google.com/search?q=${encodeURIComponent(searchPhrase)}`;
-                        }
-
-                        verificationHtml += `<li>\n                            <p>${line.replace(/\*+\s*/, '')}</p>\n                            <div class="flex space-x-2 mt-1">\n                                <button class="copy-btn bg-brand-blue-500 text-white px-2 py-1 rounded-md text-xs hover:bg-brand-blue-600 transition duration-300" data-copy="${searchPhrase}">Copiar</button>\n                                <a href="${searchBaseUrl}" target="_blank" class="search-btn bg-brand-gray-700 text-white px-2 py-1 rounded-md text-xs hover:bg-brand-gray-800 transition duration-300">Buscar en ${portalName.split('(')[0].trim()}</a>\n                            </div>\n                        </li>`;
-                    });
-                    verificationHtml += '</ul>';
-                    html = beforeVerification + verificationHtml;
+            // Actualiza la UI del contador de usos y deshabilita/habilita botones
+            const updateUsageUI = (remaining) => {
+                if (typeof remaining !== 'number') {
+                    usageMessage.textContent = 'Error al verificar usos.';
+                    allButtons.forEach(btn => btn.disabled = true);
+                    return;
                 }
 
-                return html;
-            }
+                usageMessage.textContent = `Usos restantes: ${remaining} de ${MAX_USES}`;
+                if (remaining <= 0) {
+                    allButtons.forEach(btn => {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    });
+                    usageMessage.textContent = 'Límite de usos excedido.';
+                } else {
+                    allButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    });
+                }
+            };
 
+            // Obtiene los usos iniciales desde el backend al cargar la página
+            const fetchInitialUsage = async () => {
+                try {
+                    const response = await fetch(API_URL, { method: 'GET' });
+                    if (!response.ok) throw new Error('Respuesta no válida del servidor.');
+                    const data = await response.json();
+                    updateUsageUI(data.remaining);
+                } catch (error) {
+                    console.error('Error fetching initial usage:', error);
+                    updateUsageUI(null); // Pasa null para manejar el estado de error
+                }
+            };
 
-            // Generic API call function
-            async function callApi(query, context = '') {
+            // Llama a la API con una consulta
+            const callApi = async (query, context = '') => {
+                if (isLoading) return; // Previene llamadas duplicadas
+                isLoading = true;
+
+                // Mostrar spinner y ocultar resultados anteriores
                 resultContainer.classList.remove('hidden');
                 spinner.classList.remove('hidden');
                 resultcontent.classList.add('hidden');
-                sourcesContainer.classList.add('hidden');
                 errorMessage.classList.add('hidden');
-                downloadButtons.classList.add('hidden');
 
                 try {
                     const response = await fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ query, context, clientId }) // Pass clientId here
+                        body: JSON.stringify({ query, context }),
                     });
 
-                    if (response.status === 403) {
-                        const errData = await response.json();
-                        errorText.textContent = errData.error || 'Límite de usos excedido. Contacte a soporte.';
-                        errorMessage.classList.remove('hidden');
-                        // Disable buttons on 403
-                        runVigilanciaBtn.disabled = true;
-                        runStrategyBtn.disabled = true;
-                        runDocumentBtn.disabled = true;
-                        [runVigilanciaBtn, runStrategyBtn, runDocumentBtn].forEach(btn => btn.classList.add('opacity-50', 'cursor-not-allowed'));
-                        return; // Stop further processing
-                    }
-
-                    if (!response.ok) {
-                        const errData = await response.json();
-                        throw new Error(errData.error || `Error del servidor: ${response.status}`);
+                    // Obtener los usos restantes de la cabecera
+                    const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
+                    if (remainingUsesHeader !== null) {
+                        updateUsageUI(parseInt(remainingUsesHeader, 10));
                     }
 
                     const data = await response.json();
-                    const fullText = data.result;
-                    const sourcesKeyword = 'Fuentes Consultadas';
-                    let mainContentText = fullText;
-                    let sourcesText = '';
-
-                    const sourcesIndex = fullText.indexOf(sourcesKeyword);
-
-                    if (sourcesIndex !== -1) {
-                        mainContentText = fullText.substring(0, sourcesIndex).trim();
-                        sourcesText = fullText.substring(sourcesIndex).trim();
-                    }
-
-                    resultcontent.innerHTML = markdownToHtml(mainContentText);
+                    if (!response.ok) throw new Error(data.error || 'Ocurrió un error desconocido.');
+                    
+                    resultcontent.innerHTML = data.result.replace(/\n/g, '<br>'); // Simple render
                     resultcontent.classList.remove('hidden');
 
-                    if (sourcesText) {
-                        sourcesContainer.innerHTML = markdownToHtml(sourcesText); // Now markdownToHtml handles verification section
-                        sourcesContainer.classList.remove('hidden');
-
-                        // Attach event listeners for dynamically created buttons
-                        sourcesContainer.querySelectorAll('.copy-btn').forEach(button => {
-                            button.addEventListener('click', async () => {
-                                const textToCopy = button.dataset.copy;
-                                try {
-                                    await navigator.clipboard.writeText(textToCopy);
-                                    button.textContent = '¡Copiado!';
-                                    setTimeout(() => button.textContent = 'Copiar', 2000);
-                                } catch (err) {
-                                    console.error('Failed to copy text: ', err);
-                                }
-                            });
-                        });
-                    }
-
-                    downloadButtons.classList.remove('hidden');
-
                 } catch (error) {
-                    errorText.textContent = error.message;
+                    errorMessage.textContent = error.message;
                     errorMessage.classList.remove('hidden');
                 } finally {
                     spinner.classList.add('hidden');
+                    isLoading = false;
                 }
-            }
-
-            // Download TXT function
-            downloadTxtBtn.addEventListener('click', () => {
-                const mainText = resultcontent.innerText;
-                const sourcesText = sourcesContainer.innerText;
-                const fullText = `${mainText}\n\n${sourcesText}`.trim();
-                const blob = new Blob([fullText], { type: 'text/plain' });
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'analisis_estrategico.txt';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(a.href);
+            };
+            
+            // --- Lógica de Navegación ---
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const demoId = e.target.getAttribute('data-demo');
+                    
+                    document.querySelectorAll('.demo-section').forEach(section => {
+                        section.classList.toggle('active', section.id === `demo-${demoId}`);
+                    });
+                    
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('bg-brand-blue-600'));
+                    e.target.classList.add('bg-brand-blue-600');
+                    resultContainer.classList.add('hidden');
+                });
             });
 
-            // Event Listeners for each demo
-            runVigilanciaBtn.addEventListener('click', () => {
+            // --- Asignación de Eventos a Botones ---
+            document.getElementById('run-vigilancia').addEventListener('click', () => {
                 const query = document.getElementById('vigilancia-query').value;
-                if(query) callApi(`Busca y analiza la siguiente tesis o jurisprudencia: ${query}`);
+                if (query) callApi(`Busca y analiza la siguiente tesis o jurisprudencia: ${query}`);
             });
 
-            runStrategyBtn.addEventListener('click', () => {
+            document.getElementById('run-strategy').addEventListener('click', () => {
                 const context = document.getElementById('strategy-context').value;
-                if(context) callApi(`Realiza un análisis de estrategia legal tipo FODA para el siguiente caso: ${context}. Al final, DEBES incluir una sección titulada EXACTAMENTE 'Fuentes Consultadas' con una lista de las leyes, artículos, tesis jurisprudenciales, y doctrina utilizadas para fundamentar el análisis.`, context);
+                if (context) callApi(`Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:`, context);
             });
 
-            runDocumentBtn.addEventListener('click', () => {
+            document.getElementById('run-document').addEventListener('click', () => {
                 const query = document.getElementById('document-query').value;
                 const context = document.getElementById('document-context').value;
-                if(query && context) {
-                    callApi(`Genera un borrador del siguiente documento: ${query}. Detalles clave: ${context}`, context);
-                }
+                if (query && context) callApi(`Genera un borrador del siguiente documento: ${query}`, context);
             });
-            
-            // Set initial active state for nav
-            document.querySelector('.nav-item[data-demo="vigilancia"]').classList.add('bg-brand-blue-600');
+
+            // --- Inicialización ---
+            fetchInitialUsage();
         });
     </script>
+</body>
+</html>
