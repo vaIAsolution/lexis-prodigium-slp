@@ -92,6 +92,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        // New function for processing legal citations
+        function processLegalCitations(htmlString) {
+            // This regex attempts to find common legal citation patterns within <strong> tags.
+            // It's a heuristic and might need refinement based on actual AI output patterns.
+            // It looks for "Artículo", "Art.", "Ley", "Código", "Constitución" followed by
+            // numbers, names, or combinations, all within a <strong> tag.
+            const citationRegex = /<strong>((?:Artículo|Art\.|Ley|Código|Constitución)\s+(?:\d+\s*(?:bis)?(?:(?:\s+al\s+\d+)?\s+de\s+la)?\s+[\w\s\d\.]*?))<\/strong>/gi;
+
+            return htmlString.replace(citationRegex, (match, citationText) => {
+                // Use the extracted citation text for the Google search query
+                const searchQuery = encodeURIComponent(citationText.trim());
+
+                // Return the original bolded text wrapped in an anchor tag with styling
+                return `<a href="https://www.google.com/search?q=${searchQuery}" target="_blank" class="text-blue-600 hover:underline">${match}</a>`;
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- Constantes y Variables ---
             const API_URL = '/api/proxy';
@@ -174,8 +191,13 @@
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || 'Ocurrió un error desconocido.');
                     
-                    // Renderizar el contenido Markdown a HTML
-                    resultcontent.innerHTML = marked.parse(data.result);
+                    // Renderizar el contenido Markdown a HTML y procesar citas legales
+                    let processedHtml = marked.parse(data.result);
+                    processedHtml = processLegalCitations(processedHtml);
+                    // Renderizar el contenido Markdown a HTML y procesar citas legales
+                    let processedHtml = marked.parse(data.result);
+                    processedHtml = processLegalCitations(processedHtml);
+                    resultcontent.innerHTML = processedHtml;
                     resultcontent.classList.remove('hidden');
                     resultActions.classList.remove('hidden'); // Mostrar botones de acción cuando hay resultado
 
