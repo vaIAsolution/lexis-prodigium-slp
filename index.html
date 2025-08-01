@@ -219,7 +219,7 @@
                     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-brand-blue-600 hover:underline">$1</a>');
 
                 // Specific handling for "Para Verificar esta Información:" section
-                const verificationSectionRegex = /(Para Verificar esta Información:)([\s\S]*)/;
+                const verificationMatch = markdown.match(/(?:### |\*\*)Para Verificar esta Información(?::|\*\*):([\s\S]*)/);
                 const match = html.match(verificationSectionRegex);
 
                 if (match) {
