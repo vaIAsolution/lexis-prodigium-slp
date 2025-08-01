@@ -90,6 +90,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Constantes y Variables ---
@@ -173,7 +174,8 @@
                     const data = await response.json();
                     if (!response.ok) throw new Error(data.error || 'Ocurrió un error desconocido.');
                     
-                    resultcontent.innerHTML = data.result.replace(/\n/g, '<br>'); // Simple render
+                    // Renderizar el contenido Markdown a HTML
+                    resultcontent.innerHTML = marked.parse(data.result);
                     resultcontent.classList.remove('hidden');
                     resultActions.classList.remove('hidden'); // Mostrar botones de acción cuando hay resultado
 
