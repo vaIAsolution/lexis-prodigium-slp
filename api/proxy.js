@@ -32,8 +32,13 @@ export default async (req, res) => {
       return res.status(405).json({ error: 'Método no permitido' });
     }
     
+    // --- Log para depuración ---
+    console.log('Recibida solicitud POST en /api/proxy');
+    console.log('Cuerpo de la solicitud (req.body):', JSON.stringify(req.body, null, 2));
+
     const { query, context } = req.body;
     if (!query) {
+      console.error('Error: La consulta (query) está vacía o no definida.');
       return res.status(400).json({ error: 'La consulta es requerida' });
     }
 
