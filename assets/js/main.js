@@ -139,13 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('run-strategy').addEventListener('click', () => {
         const context = document.getElementById('strategy-context').value;
-        if (context) callApi(`Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:`, context);
+        if (context) callApi(`Realiza un análisis de estrategia legal tipo FODA para el siguiente caso: ${context}`);
     });
 
     document.getElementById('run-document').addEventListener('click', () => {
         const query = document.getElementById('document-query').value;
         const context = document.getElementById('document-context').value;
-        if (query && context) callApi(`Genera un borrador del siguiente documento: ${query}`, context);
+        if (query && context) callApi(`Genera un borrador del siguiente documento: ${query}. Detalles clave: ${context}`);
     });
 
     // --- Lógica de Botones de Acción de Resultado ---
