@@ -74,6 +74,9 @@ export default async (req, res) => {
 
 5.  **Paso 5: Plan de Acción Recomendado.** Proporciona un plan claro y por fases, basado en la ley aplicable.
 
+**Instrucción de Formato Obligatoria:**
+**Utiliza formato Markdown para toda tu respuesta.** Estructura el contenido con encabezados (`#`, `##`), listas (`*` o `-`), y negritas (`** **`) para asegurar una legibilidad y presentación impecables. La claridad visual es tan importante como la precisión legal.
+
 Utiliza este marco de pensamiento avanzado para analizar el siguiente caso:
 ${caso}`;
       }

@@ -1,3 +1,72 @@
-.demo-section { display: none; }
-.demo-section.active { display: block; }
-.prose { max-width: 100%; }
+/* General body and heading fonts */
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Demo section display logic */
+.demo-section {
+    display: none;
+}
+.demo-section.active {
+    display: block;
+}
+
+/* Enhanced prose styling for readability and professional appearance */
+.prose-lg { /* This class is already on result-content */
+    font-family: 'Lora', serif; /* Use a serif font for body text in results */
+    line-height: 1.75; /* Improve line spacing */
+    font-size: 1.125rem; /* Slightly larger base font size for readability */
+    color: #343a40; /* brand-gray-700 */
+}
+
+.prose-lg h1,
+.prose-lg h2,
+.prose-lg h3,
+.prose-lg h4,
+.prose-lg h5,
+.prose-lg h6 {
+    font-family: 'Montserrat', sans-serif; /* Headings in sans-serif */
+    margin-top: 1.5em; /* More space above headings */
+    margin-bottom: 0.75em; /* Space below headings */
+    line-height: 1.2;
+    color: #212529; /* brand-gray-800 */
+}
+
+.prose-lg h1 { font-size: 2.5rem; }
+.prose-lg h2 { font-size: 2rem; }
+.prose-lg h3 { font-size: 1.75rem; }
+.prose-lg h4 { font-size: 1.5rem; }
+
+.prose-lg p {
+    margin-bottom: 1.25em; /* Space between paragraphs */
+}
+
+.prose-lg ul,
+.prose-lg ol {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: 1.5em; /* Indent lists */
+}
+
+.prose-lg li {
+    margin-bottom: 0.5em; /* Space between list items */
+}
+
+/* Ensure links within prose are styled */
+.prose-lg a {
+    color: #00bcd4; /* brand-blue-500 */
+    text-decoration: underline;
+}
+
+.prose-lg a:hover {
+    color: #00acc1; /* brand-blue-600 */
+}
+
+/* Override default prose max-width if necessary, though it's already 100% in index.html */
+.prose {
+    max-width: 100%;
+}
