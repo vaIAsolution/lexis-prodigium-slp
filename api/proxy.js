@@ -50,14 +50,39 @@ export default async (req, res) => {
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
     
     let prompt = '';
-    // (La lógica de tus prompts permanece igual)
+
+    // Artículo 479 de la Ley General de Salud (hardcodeado para demo rápida)
+    const ARTICULO_479_LGS = `
+    Artículo 479.- Para los efectos de este Capítulo se entiende por:
+    I. Cantidad de narcótico para uso personal:
+    a) Opio: 2 gramos;
+    b) Diacetilmorfina o heroína: 50 miligramos;
+    c) Cannabis Sativa, Indica y Americana o marihuana: 5 gramos;
+    d) Cocaína: 500 miligramos;
+    e) Lisergida: 0.015 miligramos;
+    f) Metanfetamina: 40 miligramos;
+    g) Demás narcóticos: la que resulte de multiplicar por mil el límite máximo de consumo personal e inmediato establecido en la tabla de orientación de dosis máximas de consumo personal e inmediato, que al efecto publique la Secretaría de Salud.
+    `;
+
     if (query.startsWith("Busca y analiza la siguiente tesis o jurisprudencia:")) {
       prompt = 'Actúa como un experto en jurisprudencia mexicana. Analiza la siguiente solicitud y proporciona un resumen claro, conciso y relevante de la tesis o jurisprudencia... ' + query;
     } else if (query.startsWith("Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:")) {
+      let additionalContext = '';
+      const lowerCaseQuery = query.toLowerCase();
+      const lowerCaseContext = context.toLowerCase();
+
+      if (lowerCaseQuery.includes('marihuana') || lowerCaseQuery.includes('estupefacientes') || lowerCaseQuery.includes('drogas') || lowerCaseQuery.includes('narcóticos') || lowerCaseContext.includes('marihuana') || lowerCaseContext.includes('estupefacientes') || lowerCaseContext.includes('drogas') || lowerCaseContext.includes('narcóticos') || lowerCaseContext.includes('cannabis')) {
+        additionalContext = `
+        Considera la siguiente información relevante de la Ley General de Salud de México para tu análisis, y **cita explícitamente el artículo y la ley cuando sea pertinente**:
+        ${ARTICULO_479_LGS}
+        `;
+      }
+
       prompt = [
-        'Eres un Asistente Legal de IA de élite...',
+        'Eres un Asistente Legal de IA de élite, especializado en derecho penal mexicano. Tu objetivo es proporcionar un análisis de estrategia legal tipo FODA (Fortalezas, Oportunidades, Debilidades, Amenazas) para el caso presentado. Debes ser extremadamente preciso en tus referencias legales, citando artículos y leyes específicas cuando sea relevante. Si la información proporcionada te permite inferir la aplicabilidad de un artículo, hazlo y cítalo.',
         '**CASO A ANALIZAR:**',
-        context
+        context,
+        additionalContext
       ].join('\n');
     } else if (query.startsWith("Genera un borrador del siguiente documento:")) {
       prompt = 'Actúa como un abogado redactor de documentos legales de alto nivel en México... ' + query + '. Detalles clave: ' + context;

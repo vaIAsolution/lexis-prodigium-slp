@@ -21,23 +21,35 @@
             }
         }
     </script>
-    <style>
-        .demo-section { display: none; }
-        .demo-section.active { display: block; }
-        .prose { max-width: 100%; }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-brand-gray-100 font-body text-brand-gray-800">
     <div class="flex h-screen bg-brand-gray-900">
         <!-- Sidebar -->
         <aside id="sidebar" class="w-64 bg-brand-gray-900 text-white flex-shrink-0 p-4 space-y-6 font-sans transition-all duration-300 -translate-x-full sm:translate-x-0">
-             <div class="text-center">
+             <div class="text-center pb-4 border-b border-gray-700">
                 <h1 class="text-2xl font-bold text-brand-blue-500">LEXIS PRODIGIUM</h1>
+                <p class="text-sm text-gray-400 mt-1">por vaIA solution</p>
             </div>
             <nav id="main-nav" class="space-y-2">
-                <a href="#" data-demo="vigilancia" class="nav-item active flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Vigilancia Judicial</a>
-                <a href="#" data-demo="strategy" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Análisis de Estrategia</a>
-                <a href="#" data-demo="document" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">Generador de Escritos</a>
+                <a href="#" data-demo="vigilancia" class="nav-item active flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span>Vigilancia Judicial</span>
+                </a>
+                <a href="#" data-demo="strategy" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                    <span>Análisis de Estrategia</span>
+                </a>
+                <a href="#" data-demo="document" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Generador de Escritos</span>
+                </a>
             </nav>
             <div class="mt-auto p-4 text-center text-sm text-gray-400" id="usage-container">
                 <div id="usage-message">Cargando usos...</div>
@@ -54,214 +66,80 @@
             <main class="flex-1 overflow-y-auto bg-brand-gray-100 p-6">
                 <!-- Universal Result/Spinner Container -->
                 <div id="result-container" class="max-w-4xl mx-auto hidden">
-                    <div id="spinner" class="flex justify-center items-center p-10">Cargando...</div>
-                    <div id="error-message" class="hidden bg-red-100 p-4"></div>
-                    <div id="result-content" class="hidden bg-white p-6 rounded-lg shadow-lg prose"></div>
-                    <div id="result-actions" class="hidden mt-4 flex justify-end space-x-2">
-                        <button id="copy-button" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Copiar</button>
-                        <button id="google-search-button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Buscar en Google</button>
+                    <div id="spinner" class="flex justify-center items-center p-10">
+                        <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-brand-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="text-lg font-semibold text-brand-gray-700">Analizando...</span>
+                    </div>
+                    <div id="error-message" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
+                        <div class="flex">
+                            <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 012 0v4a1 1 0 01-2 0V9zm2-4a1 1 0 11-2 0 1 1 0 012 0z"/></svg></div>
+                            <div>
+                                <p class="font-bold">Ocurrió un error</p>
+                                <p id="error-text" class="text-sm"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="result-content" class="hidden bg-white p-8 rounded-lg shadow-lg prose-lg text-gray-800 leading-relaxed"></div>
+                    <div id="result-actions" class="hidden mt-6 flex justify-end space-x-3">
+                        <button id="copy-button" class="px-5 py-2 bg-gray-200 text-gray-800 font-semibold rounded-md hover:bg-gray-300 transition-colors duration-300 flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span>Copiar</span>
+                        </button>
+                        <button id="download-button" class="px-5 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition-colors duration-300 flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            <span>Descargar</span>
+                        </button>
+                        <button id="google-search-button" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <span>Buscar en Google</span>
+                        </button>
                     </div>
                 </div>
 
                 <!-- Demos -->
                 <section id="demo-vigilancia" class="demo-section active">
-                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-                        <h2 class="text-2xl font-bold">Vigilancia de Criterios Judiciales</h2>
-                        <input type="text" id="vigilancia-query" class="w-full mt-4 p-2 border rounded-md" placeholder="Ej: caducidad de la instancia jalisco">
-                        <button id="run-vigilancia" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Buscar</button>
+                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+                        <h2 class="text-3xl font-bold text-brand-gray-800 mb-6">Vigilancia de Criterios Judiciales</h2>
+                        <p class="text-gray-600 mb-6">Introduce un término de búsqueda para encontrar tesis y jurisprudencias relevantes. El sistema analizará el contenido y te proporcionará un resumen y análisis del criterio encontrado.</p>
+                        <input type="text" id="vigilancia-query" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: caducidad de la instancia jalisco">
+                        <button id="run-vigilancia" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Buscar Criterios</button>
                     </div>
                 </section>
                 <section id="demo-strategy" class="demo-section">
-                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-                         <h2 class="text-2xl font-bold">Análisis de Estrategia de Caso</h2>
-                         <textarea id="strategy-context" rows="8" class="w-full mt-4 p-2 border rounded-md" placeholder="Resumen de los hechos..."></textarea>
-                         <button id="run-strategy" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Analizar</button>
+                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+                         <h2 class="text-3xl font-bold text-brand-gray-800 mb-6">Análisis de Estrategia de Caso</h2>
+                         <p class="text-gray-600 mb-6">Pega el resumen de los hechos de tu caso. La IA realizará un análisis tipo FODA (Fortalezas, Oportunidades, Debilidades, Amenazas) para ayudarte a construir la mejor estrategia legal.</p>
+                         <textarea id="strategy-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Pega aquí el resumen de los hechos, antecedentes y puntos clave del caso..."></textarea>
+                         <button id="run-strategy" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Analizar Estrategia</button>
                     </div>
                 </section>
                 <section id="demo-document" class="demo-section">
-                     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-                        <h2 class="text-2xl font-bold">Generador de Escritos</h2>
-                        <input type="text" id="document-query" class="w-full mt-4 p-2 border rounded-md" placeholder="Ej: Demanda inicial de divorcio">
-                        <textarea id="document-context" rows="6" class="w-full mt-4 p-2 border rounded-md" placeholder="Detalles y datos clave..."></textarea>
-                        <button id="run-document" class="w-full mt-4 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md">Generar</button>
+                     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+                        <h2 class="text-3xl font-bold text-brand-gray-800 mb-6">Generador de Escritos</h2>
+                        <p class="text-gray-600 mb-6">Describe el tipo de documento que necesitas y proporciona los detalles esenciales. La IA generará un borrador profesional listo para ser adaptado y utilizado.</p>
+                        <input type="text" id="document-query" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: Demanda inicial de divorcio incausado">
+                        <textarea id="document-context" rows="6" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Incluye nombres de las partes, fechas, hechos principales y cualquier otra información relevante..."></textarea>
+                        <button id="run-document" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Generar Documento</button>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
+    <div id="toast-notification" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg transition-opacity duration-300 opacity-0 hidden">
+        Texto copiado al portapapeles!
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-        // New function for processing legal citations
-        function processLegalCitations(htmlString) {
-            // This regex attempts to find common legal citation patterns within <strong> tags.
-            // It's a heuristic and might need refinement based on actual AI output patterns.
-            // It looks for "Artículo", "Art.", "Ley", "Código", "Constitución" followed by
-            // numbers, names, or combinations, all within a <strong> tag.
-            const citationRegex = /<strong>((?:Artículo|Art\.|Ley|Código|Constitución)\s+(?:\d+\s*(?:bis)?(?:(?:\s+al\s+\d+)?\s+de\s+la)?\s+[\w\s\d\.]*?))<\/strong>/gi;
-
-            return htmlString.replace(citationRegex, (match, citationText) => {
-                // Use the extracted citation text for the Google search query
-                const searchQuery = encodeURIComponent(citationText.trim());
-
-                // Return the original bolded text wrapped in an anchor tag with styling
-                return `<a href="https://www.google.com/search?q=${searchQuery}" target="_blank" class="text-blue-600 hover:underline">${match}</a>`;
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Constantes y Variables ---
-            const API_URL = '/api/proxy';
-            const MAX_USES = 5;
-            let isLoading = false;
-
-            // --- Selectores de Elementos ---
-            const usageMessage = document.getElementById('usage-message');
-            const allButtons = document.querySelectorAll('button[id^="run-"]');
-
-            const resultContainer = document.getElementById('result-container');
-            const spinner = document.getElementById('spinner');
-            const resultcontent = document.getElementById('result-content');
-            const errorMessage = document.getElementById('error-message');
-            const resultActions = document.getElementById('result-actions'); // Nuevo selector para los botones de acción
-
-            // --- Funciones Principales ---
-
-            // Actualiza la UI del contador de usos y deshabilita/habilita botones
-            const updateUsageUI = (remaining) => {
-                if (typeof remaining !== 'number') {
-                    usageMessage.textContent = 'Error al verificar usos.';
-                    allButtons.forEach(btn => btn.disabled = true);
-                    return;
-                }
-
-                usageMessage.textContent = `Usos restantes: ${remaining} de ${MAX_USES}`;
-                if (remaining <= 0) {
-                    allButtons.forEach(btn => {
-                        btn.disabled = true;
-                        btn.classList.add('opacity-50', 'cursor-not-allowed');
-                    });
-                    usageMessage.textContent = 'Límite de usos excedido.';
-                } else {
-                    allButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    });
-                }
-            };
-
-            // Obtiene los usos iniciales desde el backend al cargar la página
-            const fetchInitialUsage = async () => {
-                try {
-                    const response = await fetch(API_URL, { method: 'GET' });
-                    if (!response.ok) throw new Error('Respuesta no válida del servidor.');
-                    const data = await response.json();
-                    console.log('Datos de usos recibidos:', data); // Nuevo log
-                    updateUsageUI(data.remaining);
-                } catch (error) {
-                    console.error('Error fetching initial usage:', error);
-                    updateUsageUI(null); // Pasa null para manejar el estado de error
-                }
-            };
-
-            // Llama a la API con una consulta
-            const callApi = async (query, context = '') => {
-                if (isLoading) return; // Previene llamadas duplicadas
-                isLoading = true;
-
-                // Mostrar spinner y ocultar resultados anteriores
-                resultContainer.classList.remove('hidden');
-                spinner.classList.remove('hidden');
-                resultcontent.classList.add('hidden');
-                errorMessage.classList.add('hidden');
-                resultActions.classList.add('hidden'); // Ocultar botones de acción al iniciar una nueva consulta
-
-                try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ query, context }),
-                    });
-
-                    // Obtener los usos restantes de la cabecera
-                    const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
-                    if (remainingUsesHeader !== null) {
-                        updateUsageUI(parseInt(remainingUsesHeader, 10));
-                    }
-
-                    const data = await response.json();
-                    if (!response.ok) throw new Error(data.error || 'Ocurrió un error desconocido.');
-                    
-                    // Renderizar el contenido Markdown a HTML y procesar citas legales
-                    let processedHtml = marked.parse(data.result);
-                    processedHtml = processLegalCitations(processedHtml);
-                    processedHtml = processLegalCitations(processedHtml);
-                    resultcontent.innerHTML = processedHtml;
-                    resultcontent.classList.remove('hidden');
-                    resultActions.classList.remove('hidden'); // Mostrar botones de acción cuando hay resultado
-
-                } catch (error) {
-                    errorMessage.textContent = error.message;
-                    errorMessage.classList.remove('hidden');
-                } finally {
-                    spinner.classList.add('hidden');
-                    isLoading = false;
-                }
-            };
-            
-            // --- Lógica de Navegación ---
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const demoId = e.target.getAttribute('data-demo');
-                    
-                    document.querySelectorAll('.demo-section').forEach(section => {
-                        section.classList.toggle('active', section.id === `demo-${demoId}`);
-                    });
-                    
-                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('bg-brand-blue-600'));
-                    e.target.classList.add('bg-brand-blue-600');
-                    resultContainer.classList.add('hidden');
-                    resultActions.classList.add('hidden'); // Ocultar botones de acción al cambiar de demo
-                });
-            });
-
-            // --- Asignación de Eventos a Botones ---
-            document.getElementById('run-vigilancia').addEventListener('click', () => {
-                const query = document.getElementById('vigilancia-query').value;
-                if (query) callApi(`Busca y analiza la siguiente tesis o jurisprudencia: ${query}`);
-            });
-
-            document.getElementById('run-strategy').addEventListener('click', () => {
-                const context = document.getElementById('strategy-context').value;
-                if (context) callApi(`Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:`, context);
-            });
-
-            document.getElementById('run-document').addEventListener('click', () => {
-                const query = document.getElementById('document-query').value;
-                const context = document.getElementById('document-context').value;
-                if (query && context) callApi(`Genera un borrador del siguiente documento: ${query}`, context);
-            });
-
-            // --- Lógica de Botones de Acción de Resultado ---
-            document.getElementById('copy-button').addEventListener('click', () => {
-                const textToCopy = resultcontent.innerText;
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    alert('Texto copiado al portapapeles!');
-                }).catch(err => {
-                    console.error('Error al copiar el texto: ', err);
-                    alert('No se pudo copiar el texto.');
-                });
-            });
-
-            document.getElementById('google-search-button').addEventListener('click', () => {
-                const textToSearch = resultcontent.innerText; // Por ahora, busca todo el texto
-                window.open(`https://www.google.com/search?q=${encodeURIComponent(textToSearch)}`, '_blank');
-            });
-
-            // --- Inicialización ---
-            fetchInitialUsage();
-        });
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
