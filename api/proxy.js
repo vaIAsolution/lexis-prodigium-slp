@@ -60,25 +60,21 @@ export default async (req, res) => {
       // Si la consulta es para un análisis de estrategia, la reescribimos con el prompt de "Socio de Bufete"
       if (query.startsWith("Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:")) {
         const caso = query.substring(query.indexOf(':') + 1).trim();
-        finalPrompt = `Eres un Asistente Legal de IA de élite, actuando como un Socio del área de Litigio Civil en un bufete 'Magic Circle' de México. Tu cliente necesita un análisis de estrategia para un caso. Tu respuesta debe ser un Memorándum de Estrategia Preliminar, caracterizado por su precisión quirúrgica y su enfoque en la acción.
+        finalPrompt = `Eres un Asistente Legal de IA de élite, actuando como un Socio del área de Litigio en un bufete de primer nivel en México. Tu cliente necesita un Memorándum de Estrategia Preliminar.
 
-Tu estructura debe ser la siguiente:
+**Instrucciones de Análisis:**
 
-1.  **Diagnóstico Jurídico Central:** Inicia identificando y explicando la figura jurídica más importante del caso. Para arrendamientos donde el inquilino sigue en el inmueble y el arrendador sigue aceptando rentas tras el vencimiento del contrato, esta figura es la 'Tácita Reconducción'.
+1.  **Paso Crítico 1: Identificación de Jurisdicción.** Analiza el texto del caso para identificar el estado de la República Mexicana. Toda tu análisis subsecuente DEBE basarse en el Código Civil o Comercial del estado identificado. Si no se especifica, asume que es la Ciudad de México, pero declara esta suposición explícitamente.
 
-2.  **Marco Legal Aplicable:** Cita los artículos específicos del Código Civil para el Distrito Federal (aplicable en la Ciudad de México) que sean relevantes. Para la Tácita Reconducción, los artículos clave son el 2486 y 2487. Explica brevemente qué implican.
+2.  **Paso 2: Diagnóstico Jurídico Central.** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Tácita Reconducción', 'Prescripción', 'Vicios Ocultos').
 
-3.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, pero integra el marco legal en tus argumentos.
-    *   **Fortalezas:** La propiedad del inmueble.
-    *   **Debilidades:** Explica que la Tácita Reconducción convierte el contrato en uno de tiempo indeterminado, lo que significa que no se puede simplemente exigir el local por 'vencimiento'.
-    *   **Oportunidades:** Explica que un contrato de tiempo indeterminado puede terminarse dando un aviso previo, como lo estipula el Artículo 2478 del mismo código. Esta es la vía legal correcta.
-    *   **Amenazas:** El riesgo de que el inquilino argumente que el aviso no se dio correctamente o que se requiere un plazo mayor.
+3.  **Paso 3: Marco Legal Aplicable.** Cita los artículos específicos del **Código Civil o de Comercio del estado correspondiente** que regulan el concepto central. Explica brevemente qué implican.
 
-4.  **Plan de Acción Recomendado:** Proporciona un plan claro y por fases.
-    *   **Fase 1 (Acción Inmediata):** Dar aviso indubitable de terminación del contrato (vía notario público o judicialmente), citando el Artículo 2478. Especificar el plazo legal que tiene el inquilino para desocupar.
-    *   **Fase 2 (Si no hay desocupación):** Iniciar la demanda de terminación de contrato (no de 'desalojo por vencimiento'), adjuntando como prueba el aviso de terminación.
+4.  **Paso 4: Análisis Estratégico (FODA).** Procede con el análisis FODA, integrando el marco legal en tus argumentos. Sé directo y preciso.
 
-Utiliza este marco para analizar el siguiente caso:
+5.  **Paso 5: Plan de Acción Recomendado.** Proporciona un plan claro y por fases, basado en la ley aplicable.
+
+Utiliza este marco de pensamiento avanzado para analizar el siguiente caso:
 ${caso}`;
       }
 
