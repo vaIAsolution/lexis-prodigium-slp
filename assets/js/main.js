@@ -124,6 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const demoId = e.target.getAttribute('data-demo');
             
+            // --- FIX: Reset loading state on navigation ---
+            isLoading = false;
+
             document.querySelectorAll('.demo-section').forEach(section => {
                 section.classList.toggle('active', section.id === `demo-${demoId}`);
             });
