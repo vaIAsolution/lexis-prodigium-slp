@@ -75,7 +75,7 @@ export default async (req, res) => {
 5.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, integrando el marco legal y las citas exactas en tus argumentos. Sé directo, preciso y estratégico.
 
 6.  **Plan de Acción Recomendado (Precisión Procesal):** Proporciona un plan claro y por fases, basado en la ley aplicable y los artículos citados. **Sé explícito sobre las vías procesales y los órganos jurisdiccionales correctos.**
-    *   **Para materia laboral:** Siempre refiere a los **Juzgados Laborales** (o Tribunales Laborales), nunca a las Juntas de Conciliación y Arbitraje, debido a la reforma laboral de 2019-2020.
+    *   **Para materia laboral:** Siempre refiere a los **Juzgados Laborales** (o Tribunales Laborales), nunca a las Juntas de Conciliación y Arbitraje, debido a la reforma laboral de 2019-2020. **Además, para la cláusula penal en materia mercantil, cita los artículos 88 y 89 del Código de Comercio.**
     *   **Para materia familiar:** Menciona las vías de apremio o incidentes de ejecución.
     *   **Para materia administrativa:** Distingue entre recurso administrativo y juicio de nulidad ante el Tribunal Federal de Justicia Administrativa (TFJA).
 
