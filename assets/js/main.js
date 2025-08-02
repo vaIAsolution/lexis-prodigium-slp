@@ -122,19 +122,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
-            const demoId = e.target.getAttribute('data-demo');
-            
-            // --- FIX: Reset loading state on navigation ---
-            isLoading = false;
+            const demoId = e.currentTarget.getAttribute('data-demo');
 
+            // --- AGGRESSIVE RESET OF ALL UI AND LOGIC STATES ---
+            isLoading = false;
+            spinner.classList.add('hidden');
+            resultContainer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            resultcontent.classList.add('hidden');
+            resultActions.classList.add('hidden');
+
+            // --- Continue with navigation ---
             document.querySelectorAll('.demo-section').forEach(section => {
                 section.classList.toggle('active', section.id === `demo-${demoId}`);
             });
-            
+
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('bg-brand-blue-600'));
-            e.target.classList.add('bg-brand-blue-600');
-            resultContainer.classList.add('hidden');
-            resultActions.classList.add('hidden'); // Ocultar botones de acción al cambiar de demo
+            e.currentTarget.classList.add('bg-brand-blue-600');
         });
     });
 
