@@ -95,6 +95,9 @@ export default async (req, res) => {
       prompt = 'Responde a la siguiente pregunta de forma concisa: ' + query;
     }
 
+    // --- Log final para depuración ---
+    console.log('Enviando el siguiente prompt a la IA:', JSON.stringify(prompt, null, 2));
+
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
