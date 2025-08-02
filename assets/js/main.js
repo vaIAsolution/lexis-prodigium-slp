@@ -124,15 +124,24 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const demoId = e.currentTarget.getAttribute('data-demo');
 
-            // --- AGGRESSIVE RESET OF ALL UI AND LOGIC STATES ---
+            // --- MASTER RESET ---
+            // 1. Reset logic state
             isLoading = false;
+
+            // 2. Force all action buttons to be enabled
+            allButtons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
+
+            // 3. Hide all result-related containers
             spinner.classList.add('hidden');
             resultContainer.classList.add('hidden');
             errorMessage.classList.add('hidden');
             resultcontent.classList.add('hidden');
             resultActions.classList.add('hidden');
 
-            // --- Continue with navigation ---
+            // 4. Set the correct active section and nav item
             document.querySelectorAll('.demo-section').forEach(section => {
                 section.classList.toggle('active', section.id === `demo-${demoId}`);
             });
