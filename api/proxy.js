@@ -55,20 +55,8 @@ export default async (req, res) => {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       
-      let prompt = '';
-
-      // (El resto de la lógica del prompt permanece igual)
-      // ... (Código de construcción del prompt) ...
-
-      if (query.startsWith("Busca y analiza la siguiente tesis o jurisprudencia:")) {
-        prompt = 'Actúa como un experto en jurisprudencia mexicana. Analiza la siguiente solicitud y proporciona un resumen claro, conciso y relevante de la tesis o jurisprudencia... ' + query;
-      } else if (query.startsWith("Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:")) {
-        // ... (código de estrategia) ...
-      } else if (query.startsWith("Genera un borrador del siguiente documento:")) {
-        prompt = 'Actúa como un abogado redactor de documentos legales de alto nivel en México... ' + query + '. Detalles clave: ' + context;
-      } else {
-        prompt = 'Responde a la siguiente pregunta de forma concisa: ' + query;
-      }
+      // El prompt ahora viene completo desde el frontend
+      const prompt = query;
 
       console.log('Enviando el siguiente prompt a la IA:', JSON.stringify(prompt, null, 2));
 
