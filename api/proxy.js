@@ -64,20 +64,22 @@ export default async (req, res) => {
 
 **Instrucciones de Análisis (Precisión Quirúrgica y Actualizada):**
 
-1.  **Identificación de Jurisdicción y Materia:** Analiza el texto del caso para identificar el estado de la República Mexicana y la materia legal (ej. civil, mercantil, laboral, familiar, administrativo). Toda tu análisis subsecuente DEBE basarse en el Código o Ley específica de ese estado o materia. Si no se especifica el estado, asume que es la Ciudad de México, pero declara esta suposición explícitamente.
+1.  **Identificación de Jurisdicción y Materia:** Analiza el texto del caso para identificar el estado de la República Mexicana y la materia legal (ej. civil, mercantil, laboral, familiar, administrativo, penal). Toda tu análisis subsecuente DEBE basarse en el Código o Ley específica de ese estado o materia. Si no se especifica el estado, asume que es la Ciudad de México, pero declara esta suposición explícitamente.
 
-2.  **Identificación del Cuerpo Legal Principal:** Determina cuál es la ley o código principal aplicable al caso (ej. Código Civil para el Estado de San Luis Potosí, Ley Federal del Trabajo, Ley General de Títulos y Operaciones de Crédito, Código de Comercio, Ley Federal de Protección al Consumidor, Código Civil para el Estado de Jalisco). **Es CRÍTICO que identifiques la ley correcta y su ámbito (federal o estatal).** Recuerda que la ley especial prevalece sobre la general (ej. LGTOC sobre Código Civil para títulos de crédito).
+2.  **Identificación del Cuerpo Legal Principal:** Determina cuál es la ley o código principal aplicable al caso (ej. Código Civil para el Estado de San Luis Potosí, Ley Federal del Trabajo, Ley General de Títulos y Operaciones de Crédito, Código de Comercio, Ley Federal de Protección al Consumidor, Código Civil para el Estado de Jalisco, Código Penal Federal, Ley General de Salud). **Es CRÍTICO que identifiques la ley correcta y su ámbito (federal o estatal).** Recuerda que la ley especial prevalece sobre la general (ej. LGTOC sobre Código Civil para títulos de crédito). **Para delitos contra la salud, SIEMPRE usa la Ley General de Salud y el Código Penal Federal, NUNCA un Código Penal estatal.**
 
-3.  **Diagnóstico Jurídico Central:** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Despido Injustificado', 'Tácita Reconducción', 'Prescripción de la Acción Cambiaria', 'Vicios Ocultos', 'Incumplimiento de Obligación Alimentaria', 'Impugnación de Multa Administrativa').
+3.  **Diagnóstico Jurídico Central:** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Despido Injustificado', 'Tácita Reconducción', 'Prescripción de la Acción Cambiaria', 'Vicios Ocultos', 'Incumplimiento de Obligación Alimentaria', 'Impugnación de Multa Administrativa', 'Posesión Simple de Narcóticos').
 
 4.  **Marco Legal Aplicable (Citas Exactas):** Cita los **artículos específicos y relevantes** de la ley o código identificado en el punto 2 que regulan el concepto central. Explica brevemente qué implican esos artículos en el contexto del caso.
 
 5.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, integrando el marco legal y las citas exactas en tus argumentos. Sé directo, preciso y estratégico.
 
 6.  **Plan de Acción Recomendado (Precisión Procesal):** Proporciona un plan claro y por fases, basado en la ley aplicable y los artículos citados. **Sé explícito sobre las vías procesales y los órganos jurisdiccionales correctos.**
-    *   **Para materia laboral:** Siempre refiere a los **Juzgados Laborales** (o Tribunales Laborales), nunca a las Juntas de Conciliación y Arbitraje, debido a la reforma laboral de 2019-2020. **Además, para la cláusula penal en materia mercantil, cita los artículos 88 y 89 del Código de Comercio.**
+    *   **Para materia laboral:** Siempre refiere a los **Juzgados Laborales** (o Tribunales Laborales), nunca a las Juntas de Conciliación y Arbitraje, debido a la reforma laboral de 2019-2020.
+    *   **Para materia mercantil (cláusula penal):** Cita los **artículos 88 y 89 del Código de Comercio**.
     *   **Para materia familiar:** Menciona las vías de apremio o incidentes de ejecución.
     *   **Para materia administrativa:** Distingue entre recurso administrativo y juicio de nulidad ante el Tribunal Federal de Justicia Administrativa (TFJA).
+    *   **Para materia penal (delitos contra la salud):** Asegúrate de que la vía procesal sea la federal y los órganos jurisdiccionales federales.
 
 Utiliza este marco de pensamiento avanzado para analizar el siguiente caso:
 ${caso}`;
