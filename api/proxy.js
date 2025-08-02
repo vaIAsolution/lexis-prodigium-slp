@@ -62,17 +62,19 @@ export default async (req, res) => {
         const caso = query.substring(query.indexOf(':') + 1).trim();
         finalPrompt = `Eres un Asistente Legal de IA de élite, actuando como un Socio del área de Litigio en un bufete de primer nivel en México. Tu cliente necesita un Memorándum de Estrategia Preliminar.
 
-**Instrucciones de Análisis:**
+**Instrucciones de Análisis (Precisión Quirúrgica):**
 
-1.  **Paso Crítico 1: Identificación de Jurisdicción.** Analiza el texto del caso para identificar el estado de la República Mexicana. Toda tu análisis subsecuente DEBE basarse en el Código Civil o Comercial del estado identificado. Si no se especifica, asume que es la Ciudad de México, pero declara esta suposición explícitamente.
+1.  **Identificación de Jurisdicción y Materia:** Analiza el texto del caso para identificar el estado de la República Mexicana y la materia legal (ej. civil, mercantil, penal). Toda tu análisis subsecuente DEBE basarse en el Código o Ley específica de ese estado o materia. Si no se especifica el estado, asume que es la Ciudad de México, pero declara esta suposición explícitamente.
 
-2.  **Paso 2: Diagnóstico Jurídico Central.** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Tácita Reconducción', 'Prescripción', 'Vicios Ocultos').
+2.  **Identificación del Cuerpo Legal Principal:** Determina cuál es la ley o código principal aplicable al caso (ej. Código Civil para el Estado de San Luis Potosí, Ley General de Títulos y Operaciones de Crédito, Código de Comercio). **Es CRÍTICO que identifiques la ley correcta.** Recuerda que la ley especial prevalece sobre la general (ej. LGTOC sobre Código Civil para títulos de crédito).
 
-3.  **Paso 3: Marco Legal Aplicable.** Cita los artículos específicos del **Código Civil o de Comercio del estado correspondiente** que regulan el concepto central. Explica brevemente qué implican.
+3.  **Diagnóstico Jurídico Central:** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Tácita Reconducción', 'Prescripción de la Acción Cambiaria', 'Vicios Ocultos').
 
-4.  **Paso 4: Análisis Estratégico (FODA).** Procede con el análisis FODA, integrando el marco legal en tus argumentos. Sé directo y preciso.
+4.  **Marco Legal Aplicable (Citas Exactas):** Cita los **artículos específicos y relevantes** de la ley o código identificado en el punto 2 que regulan el concepto central. Explica brevemente qué implican esos artículos en el contexto del caso.
 
-5.  **Paso 5: Plan de Acción Recomendado.** Proporciona un plan claro y por fases, basado en la ley aplicable.
+5.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, integrando el marco legal y las citas exactas en tus argumentos. Sé directo, preciso y estratégico.
+
+6.  **Plan de Acción Recomendado:** Proporciona un plan claro y por fases, basado en la ley aplicable y los artículos citados.
 
 Utiliza este marco de pensamiento avanzado para analizar el siguiente caso:
 ${caso}`;
