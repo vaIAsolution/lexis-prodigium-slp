@@ -70,10 +70,13 @@ export default async (req, res) => {
 
 3.  **Diagnóstico Jurídico Central:** Identifica y nombra la figura o concepto jurídico más importante del caso (ej. 'Despido Injustificado', 'Tácita Reconducción', 'Prescripción de la Acción Cambiaria', 'Vicios Ocultos', 'Incumplimiento de Obligación Alimentaria', 'Impugnación de Multa Administrativa', 'Posesión Simple de Narcóticos', 'Delincuencia Organizada', 'Incumplimiento de Contrato de Franquicia', 'Prescripción Adquisitiva (Usucapión)').
 
-4.  **Marco Legal Aplicable (Citas Exactas):** Cita los **artículos específicos y relevantes** de la ley o código identificado en el punto 2 que regulan el concepto central. Explica brevemente qué implican esos artículos en el contexto del caso.
+4.  **Marco Legal Aplicable (Citas Exactas y Formato Específico):** Cita los **artículos específicos y relevantes** de la ley o código identificado en el punto 2 que regulan el concepto central. Explica brevemente qué implican esos artículos en el contexto del caso. **Formatea cada cita legal de la siguiente manera: [Art. X LEY_ABREVIADA]. Por ejemplo: [Art. 2 LFDCO], [Art. 175 LGTOC], [Art. 1160 CC Guanajuato].**
     *   **Para Delincuencia Organizada:** Cita los Artículos 2 y 4 de la Ley Federal contra la Delincuencia Organizada.
     *   **Para Franquicias:** Cita el Artículo 142 de la Ley de la Propiedad Industrial.
     *   **Para Usucapión (Guanajuato):** Cita los Artículos 1160 al 1170 del Código Civil para el Estado de Guanajuato.
+    *   **Para Compraventa de Inmueble (SLP):** Cita los Artículos 2140, 2141 y 2146 del Código Civil para el Estado de San Luis Potosí.
+    *   **Para Cobro de Cheque (SLP):** Cita los Artículos 175, 181, 185 y 190 de la Ley General de Títulos y Operaciones de Crédito.
+    *   **Para Divorcio Incausado (SLP):** Cita los Artículos 101 al 106 y 162 del Código Civil para el Estado de San Luis Potosí.
 
 5.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, integrando el marco legal y las citas exactas en tus argumentos. Sé directo, preciso y estratégico.
     *   **Para Delincuencia Organizada:** La estrategia de defensa debe enfocarse en desvirtuar los elementos constitutivos del delito (ej. falta de organización permanente, falta de conocimiento del fin de la organización, falta de intención de cometer los delitos), más allá de la mera alegación de engaño.
