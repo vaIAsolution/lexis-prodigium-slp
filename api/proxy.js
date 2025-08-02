@@ -55,12 +55,36 @@ export default async (req, res) => {
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       
-      // El prompt ahora viene completo desde el frontend
-      const prompt = query;
+      let finalPrompt = query; // Por defecto, el prompt es la consulta que ya viene completa
 
-      console.log('Enviando el siguiente prompt a la IA:', JSON.stringify(prompt, null, 2));
+      // Si la consulta es para un análisis de estrategia, la reescribimos con el prompt de "Socio de Bufete"
+      if (query.startsWith("Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:")) {
+        const caso = query.substring(query.indexOf(':') + 1).trim();
+        finalPrompt = `Eres un Asistente Legal de IA de élite, actuando como un Socio del área de Litigio Civil en un bufete 'Magic Circle' de México. Tu cliente necesita un análisis de estrategia para un caso. Tu respuesta debe ser un Memorándum de Estrategia Preliminar, caracterizado por su precisión quirúrgica y su enfoque en la acción.
 
-      const result = await model.generateContent(prompt);
+Tu estructura debe ser la siguiente:
+
+1.  **Diagnóstico Jurídico Central:** Inicia identificando y explicando la figura jurídica más importante del caso. Para arrendamientos donde el inquilino sigue en el inmueble y el arrendador sigue aceptando rentas tras el vencimiento del contrato, esta figura es la 'Tácita Reconducción'.
+
+2.  **Marco Legal Aplicable:** Cita los artículos específicos del Código Civil para el Distrito Federal (aplicable en la Ciudad de México) que sean relevantes. Para la Tácita Reconducción, los artículos clave son el 2486 y 2487. Explica brevemente qué implican.
+
+3.  **Análisis Estratégico (FODA):** Procede con el análisis FODA, pero integra el marco legal en tus argumentos.
+    *   **Fortalezas:** La propiedad del inmueble.
+    *   **Debilidades:** Explica que la Tácita Reconducción convierte el contrato en uno de tiempo indeterminado, lo que significa que no se puede simplemente exigir el local por 'vencimiento'.
+    *   **Oportunidades:** Explica que un contrato de tiempo indeterminado puede terminarse dando un aviso previo, como lo estipula el Artículo 2478 del mismo código. Esta es la vía legal correcta.
+    *   **Amenazas:** El riesgo de que el inquilino argumente que el aviso no se dio correctamente o que se requiere un plazo mayor.
+
+4.  **Plan de Acción Recomendado:** Proporciona un plan claro y por fases.
+    *   **Fase 1 (Acción Inmediata):** Dar aviso indubitable de terminación del contrato (vía notario público o judicialmente), citando el Artículo 2478. Especificar el plazo legal que tiene el inquilino para desocupar.
+    *   **Fase 2 (Si no hay desocupación):** Iniciar la demanda de terminación de contrato (no de 'desalojo por vencimiento'), adjuntando como prueba el aviso de terminación.
+
+Utiliza este marco para analizar el siguiente caso:
+${caso}`;
+      }
+
+      console.log('Enviando el siguiente prompt a la IA:', JSON.stringify(finalPrompt, null, 2));
+
+      const result = await model.generateContent(finalPrompt);
       const response = await result.response;
       const text = response.text();
 
