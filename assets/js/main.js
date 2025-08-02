@@ -96,6 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
+
+            // --- Log para depuración en el frontend ---
+            console.log('Respuesta recibida del servidor:', JSON.stringify(data, null, 2));
+
             if (!response.ok) throw new Error(data.error || 'Ocurrió un error desconocido.');
             
             // Renderizar el contenido Markdown a HTML y procesar citas legales
