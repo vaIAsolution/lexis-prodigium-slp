@@ -12,7 +12,7 @@ function processLegalCitations(htmlString) {
     // This regex attempts to find common legal citation patterns.
     // It looks for "Artículo", "Art.", "Ley", "Código", "Constitución" followed by
     // numbers, names, or combinations.
-    const citationRegex = /(Artículo|Art\.|Ley|Código|Constitución)\s+(\d+\s*(?:bis)?(?:(?:\s+al\s+\d+)?(?:(?:\s+de\s+la)?(?:\s+del)?(?:\s+de)?\s+[A-Z][\w\s\d\.]*?)(?:\s+de\s+\d{4})?)/gi;
+        const citationRegex = /(Artículo|Art\.|Ley|Código|Constitución)\s+(\d+\s*(?:bis)?(?:\s+al\s+\d+)?(?:\s+de\s+la)?(?:\s+del)?(?:\s+de)?\s+[A-Z][\w\s\d\.]*?(?:\s+de\s+\d{4})?)/gi;
 
     return htmlString.replace(citationRegex, (match, p1, p2) => {
         const fullCitation = `${p1} ${p2}`.trim();
