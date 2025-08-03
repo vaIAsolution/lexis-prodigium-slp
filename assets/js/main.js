@@ -31,21 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let isLoading = false;
 
     // --- Selectores de Elementos ---
-    const usageMessage = document.getElementById('usage-message');
     const allButtons = document.querySelectorAll('button[id^="run-"]');
 
     const resultContainer = document.getElementById('result-container');
     const spinner = document.getElementById('spinner');
     const resultcontent = document.getElementById('result-content');
-    const errorMessage = document.getElementById('error-message');
     const resultActions = document.getElementById('result-actions'); // Nuevo selector para los botones de acción
 
     // --- Funciones Principales ---
 
-    // Actualiza la UI del contador de usos y deshabilita/habilita botones
-    const updateUsageUI = (remaining) => {};
-
-    const fetchInitialUsage = async () => {};
+    // Habilitar todos los botones al cargar la página
+    allButtons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    });
 
     // Llama a la API con una consulta
     const callApi = async (query, context = '', type) => {
@@ -67,10 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Obtener los usos restantes de la cabecera
-            const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
-            if (remainingUsesHeader !== null) {
-                updateUsageUI(parseInt(remainingUsesHeader, 10));
-            }
+            // Ya no es necesario, la demo es ilimitada
+            // const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
+            // if (remainingUsesHeader !== null) {
+            //     updateUsageUI(parseInt(remainingUsesHeader, 10));
+            // }
 
             const data = await response.json();
 
@@ -149,7 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('sources-container').classList.add('hidden'); // Ocultar contenedor de fuentes
 
             // 4. Set the correct active section and nav item
+            console.log('Clicked nav item:', demoId); // Debugging
             document.querySelectorAll('.demo-section').forEach(section => {
+                console.log('Processing section:', section.id, 'Is active:', section.id === `demo-${demoId}`); // Debugging
                 section.classList.toggle('active', section.id === `demo-${demoId}`);
             });
 
