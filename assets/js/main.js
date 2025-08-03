@@ -36,7 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultContainer = document.getElementById('result-container');
     const spinner = document.getElementById('spinner');
     const resultcontent = document.getElementById('result-content');
+    const errorMessage = document.getElementById('error-message');
     const resultActions = document.getElementById('result-actions'); // Nuevo selector para los botones de acción
+
+    // Habilitar todos los botones al cargar la página
+    allButtons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    });
 
     // --- Funciones Principales ---
 
@@ -159,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.currentTarget.classList.add('bg-brand-blue-600');
         });
     });
+    console.log('Navigation event listeners attached.'); // Debugging
 
     // --- Asignación de Eventos a Botones ---
     document.getElementById('run-contratos').addEventListener('click', async () => {
