@@ -27,7 +27,7 @@ function processLegalCitations(htmlString) {
 document.addEventListener('DOMContentLoaded', () => {
     // --- Constantes y Variables ---
     const API_URL = '/api/proxy';
-    const MAX_USES = 5;
+    
     let isLoading = false;
 
     // --- Selectores de Elementos ---
@@ -284,5 +284,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
     // --- Inicialización ---
-    fetchInitialUsage();
 });
