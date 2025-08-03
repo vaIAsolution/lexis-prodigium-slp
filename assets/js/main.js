@@ -172,9 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('run-contratos').addEventListener('click', async () => {
         const textAreaContext = document.getElementById('contratos-context').value;
         const fileInput = document.getElementById('contratos-file');
+        console.log('fileInput for contratos:', fileInput); // NEW DEBUG LOG
         let context = textAreaContext;
 
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             if (file.type === 'text/plain') {
                 context = await readFileContent(file);
@@ -192,11 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('run-strategy').addEventListener('click', async () => {
+        console.log('Clicked Analizar Estrategia button.'); // Debugging
         const textAreaContext = document.getElementById('strategy-context').value;
         const fileInput = document.getElementById('strategy-file');
+        console.log('fileInput for strategy:', fileInput); // NEW DEBUG LOG
         let context = textAreaContext;
 
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             if (file.type === 'text/plain') {
                 context = await readFileContent(file);
@@ -213,16 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('run-document').addEventListener('click', async () => {
+        console.log('Clicked Generar Documento button.'); // Debugging
         const query = document.getElementById('document-query').value;
         const textAreaContext = document.getElementById('document-context').value;
         const fileInput = document.getElementById('document-file');
+        console.log('fileInput for document:', fileInput); // NEW DEBUG LOG
         let context = textAreaContext;
 
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             if (file.type === 'text/plain') {
                 context = await readFileContent(file);
             } else {
+                // For PDF/DOCX, we'll need backend processing. For now, just indicate.
                 context = `[CONTENIDO DE ARCHIVO ${file.name} - REQUIERE PROCESAMIENTO EN BACKEND]`;
                 alert('La carga de archivos PDF/DOCX requiere procesamiento en el servidor. Por favor, pegue el texto directamente por ahora.');
                 return;
@@ -235,11 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('run-perfiles').addEventListener('click', async () => {
+        console.log('Clicked Generar Perfil button.'); // Debugging
         const textAreaContext = document.getElementById('perfiles-context').value;
         const fileInput = document.getElementById('perfiles-file');
+        console.log('fileInput for perfiles:', fileInput); // NEW DEBUG LOG
         let context = textAreaContext;
 
-        if (fileInput.files.length > 0) {
+        if (fileInput && fileInput.files.length > 0) {
             const file = fileInput.files[0];
             if (file.type === 'text/plain') {
                 context = await readFileContent(file);

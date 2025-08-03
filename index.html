@@ -125,6 +125,14 @@
                         <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-serif">Análisis de Contratos: Blindaje Legal Inteligente</h2>
                         <p class="text-gray-600 mb-6">Eleve la seguridad jurídica de sus acuerdos. Pegue el texto de un contrato o cláusula clave y LEXIS PRODIGIUM lo analizará en segundos, identificando riesgos ocultos, ambigüedades y omisiones bajo la legislación de Jalisco. Obtenga un blindaje legal que antes tomaba horas.</p>
                         <textarea id="contratos-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: 'CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES que celebran...' (pegue aquí el texto del contrato a analizar)..."></textarea>
+                        <div class="mt-4">
+                            <label for="contratos-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="contratos-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
+                        <div class="mt-4">
+                            <label for="contratos-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="contratos-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
                         <button id="run-contratos" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Analizar Contrato</button>
                         <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
                             <p class="font-bold">Versión DEMO:</p>
@@ -137,6 +145,14 @@
                          <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-serif">Análisis de Estrategia: La Brújula de su Litigio</h2>
                          <p class="text-gray-600 mb-6">Transforme su enfoque litigioso. Pegue el resumen de los hechos de su caso y LEXIS PRODIGIUM, en segundos, le entregará un análisis FODA estratégico, identificando fortalezas procesales, oportunidades de argumentación, debilidades a mitigar y amenazas a anticipar, todo bajo el marco legal de Jalisco. Ahorre horas de investigación y gane claridad.</p>
                          <textarea id="strategy-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: 'Un cliente en Guadalajara fue multado por exceso de velocidad...' (pegue aquí el resumen de los hechos del caso)..."></textarea>
+                         <div class="mt-4">
+                            <label for="strategy-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="strategy-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
+                         <div class="mt-4">
+                            <label for="strategy-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="strategy-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
                          <button id="run-strategy" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Analizar Estrategia</button>
                          <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
                             <p class="font-bold">Versión DEMO:</p>
@@ -150,6 +166,14 @@
                         <p class="text-gray-600 mb-6">Agilice su redacción legal. Describa el tipo de documento que necesita (procesal o general) y proporcione los detalles esenciales. LEXIS PRODIGIUM generará un borrador profesional, estructurado y listo para ser adaptado a sus necesidades específicas, ahorrándole tiempo valioso.</p>
                         <input type="text" id="document-query" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: Demanda inicial de divorcio incausado en Jalisco / Carta poder simple para recoger paquete...">
                         <textarea id="document-context" rows="6" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Incluya nombres de las partes, fechas, hechos principales, juzgado, expediente y cualquier otra información relevante..."></textarea>
+                        <div class="mt-4">
+                            <label for="document-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="document-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
+                        <div class="mt-4">
+                            <label for="document-file" class="block text-sm font-medium text-gray-700">O suba un documento (PDF, DOCX, TXT):</label>
+                            <input type="file" id="document-file" accept=".pdf,.docx,.txt" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-blue-50 file:text-brand-blue-700 hover:file:bg-brand-blue-100">
+                        </div>
                         <button id="run-document" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Generar Documento</button>
                         <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
                             <p class="font-bold">Versión DEMO:</p>
