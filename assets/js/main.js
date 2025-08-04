@@ -11,18 +11,16 @@ function processLegalCitations(htmlString) {
 
         // For now, still links to Google. In a future iteration, this would trigger a modal
         // to display the article content directly within the app.
-        return `<a href="https://www.google.com/search?q=${searchQuery}" target="_blank" class="text-blue-600 hover:underline" data-article-citation="${fullCitation}">${match}</a>`;
+        return `<a href="https://www.google.com/search?q=${searchQuery}" target="_blank" class="text-brand-blue-500 hover:underline" data-article-citation="${fullCitation}">${match}</a>`;
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Constantes y Variables ---
     const API_URL = '/api/proxy';
-    const MAX_USES = 5;
     let isLoading = false;
 
     // --- Selectores de Elementos ---
-    const usageMessage = document.getElementById('usage-message');
     const allButtons = document.querySelectorAll('button[id^="run-"]');
 
     const resultContainer = document.getElementById('result-container');
@@ -33,40 +31,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Funciones Principales ---
 
-    // Actualiza la UI del contador de usos y deshabilita/habilita botones
-    const updateUsageUI = (remaining) => {
-        if (typeof remaining !== 'number') {
-            usageMessage.textContent = 'Error al verificar usos.';
-            allButtons.forEach(btn => btn.disabled = true);
-            return;
-        }
-
-        usageMessage.textContent = `Usos restantes: ${remaining} de ${MAX_USES}`;
-        if (remaining <= 0) {
-            allButtons.forEach(btn => {
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-            });
-            usageMessage.textContent = 'Límite de usos excedido.';
-        } else {
-            allButtons.forEach(btn => {
-                btn.disabled = false;
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            });
-        }
-    };
-
-    // Obtiene los usos iniciales desde el backend al cargar la página
-    const fetchInitialUsage = async () => {
+    // Función para obtener y mostrar los usos restantes
+    const fetchUsage = async () => {
         try {
             const response = await fetch(API_URL, { method: 'GET' });
-            if (!response.ok) throw new Error('Respuesta no válida del servidor.');
             const data = await response.json();
-            console.log('Datos de usos recibidos:', data); // Nuevo log
-            updateUsageUI(data.remaining);
+            const usageMessage = document.getElementById('usage-message');
+            const usageContainer = document.getElementById('usage-container');
+
+            if (response.ok) {
+                usageMessage.textContent = `Usos restantes: ${data.remaining} de ${data.max}`;
+                usageContainer.classList.remove('hidden');
+            } else {
+                usageMessage.textContent = `Error al cargar usos: ${data.error || 'Desconocido'}`;
+                usageContainer.classList.remove('hidden');
+                usageContainer.classList.add('text-red-400');
+            }
         } catch (error) {
-            console.error('Error fetching initial usage:', error);
-            updateUsageUI(null); // Pasa null para manejar el estado de error
+            console.error('Error al obtener usos:', error);
+            const usageMessage = document.getElementById('usage-message');
+            const usageContainer = document.getElementById('usage-container');
+            usageMessage.textContent = 'Error al cargar usos.';
+            usageContainer.classList.remove('hidden');
+            usageContainer.classList.add('text-red-400');
         }
     };
 
@@ -89,12 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ query, context }),
             });
 
-            // Obtener los usos restantes de la cabecera
-            const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
-            if (remainingUsesHeader !== null) {
-                updateUsageUI(parseInt(remainingUsesHeader, 10));
-            }
-
             const data = await response.json();
 
             // --- Log para depuración en el frontend ---
@@ -105,9 +86,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // Renderizar el contenido Markdown a HTML y procesar citas legales
             let processedHtml = marked.parse(data.result);
             processedHtml = processLegalCitations(processedHtml);
-            resultcontent.innerHTML = processedHtml; // Corrected line
-            resultcontent.classList.remove('hidden'); // Corrected line
-            resultActions.classList.remove('hidden'); // Corrected line
+            resultcontent.innerHTML = processedHtml; 
+            resultcontent.classList.remove('hidden'); 
+            resultActions.classList.remove('hidden'); 
+
+            // Actualizar usos restantes
+            fetchUsage(); 
+
+            // Mostrar mensaje de ahorro de tiempo
+            const timeSavingMessage = document.getElementById('time-saving-message');
+            const humanTimeSpan = document.getElementById('human-time');
+            const aiTimeSpan = document.getElementById('ai-time');
+
+            // Lógica simple para simular ahorro de tiempo
+            const humanTimeOptions = ["varias horas de investigación legal", "un día completo de análisis jurídico", "semanas de preparación de casos complejos"];
+            const aiTimeOptions = ["escasos segundos", "pocos minutos clave"];
+
+            humanTimeSpan.textContent = humanTimeOptions[Math.floor(Math.random() * humanTimeOptions.length)];
+            aiTimeSpan.textContent = aiTimeOptions[Math.floor(Math.random() * aiTimeOptions.length)];
+            timeSavingMessage.classList.remove('hidden');
 
         } catch (error) {
             document.getElementById('error-text').textContent = error.message;
@@ -140,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessage.classList.add('hidden');
             resultcontent.classList.add('hidden');
             resultActions.classList.add('hidden');
+            document.getElementById('time-saving-message').classList.add('hidden'); // Ocultar mensaje de ahorro de tiempo
 
             // 4. Set the correct active section and nav item
             document.querySelectorAll('.demo-section').forEach(section => {
@@ -152,25 +150,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Asignación de Eventos a Botones ---
-    document.getElementById('run-vigilancia').addEventListener('click', () => {
-        const query = document.getElementById('vigilancia-query').value;
-        if (query) callApi(`Busca y analiza la siguiente tesis o jurisprudencia: ${query}`);
+    document.getElementById('run-contratos').addEventListener('click', () => {
+        const context = document.getElementById('contratos-context').value;
+        if (context) {
+            const query = `Analiza el siguiente contrato para identificar riesgos bajo la legislación de San Luis Potosí: ${context}`;
+            callApi(query);
+        }
     });
 
     document.getElementById('run-strategy').addEventListener('click', () => {
         const context = document.getElementById('strategy-context').value;
         if (context) {
-            const fullPrompt = `Realiza un análisis de estrategia legal tipo FODA para el siguiente caso:\n\n${context}`;
-            callApi(fullPrompt);
+            const query = `Realiza un análisis de estrategia legal tipo FODA para el siguiente caso: ${context}`;
+            callApi(query);
         }
     });
 
     document.getElementById('run-document').addEventListener('click', () => {
-        const query = document.getElementById('document-query').value;
-        const context = document.getElementById('document-context').value;
-        if (query && context) {
-            const fullPrompt = `Genera un borrador del siguiente documento: ${query}. Detalles clave: ${context}`;
-            callApi(fullPrompt);
+        const docQuery = document.getElementById('document-query').value;
+        const docContext = document.getElementById('document-context').value;
+        if (docQuery && docContext) {
+            let finalQuery = '';
+            if (docQuery.startsWith("Genera un borrador de escrito procesal")) {
+                finalQuery = `Genera un borrador de escrito procesal para el siguiente caso en San Luis Potosí: ${docContext}`;
+            } else {
+                finalQuery = `Genera un borrador de documento legal general: ${docContext}`;
+            }
+            callApi(finalQuery);
+        }
+    });
+
+    document.getElementById('run-perfiles').addEventListener('click', () => {
+        const context = document.getElementById('perfiles-context').value;
+        if (context) {
+            const query = `Genera un perfil estratégico del abogado o juez a partir del siguiente texto: ${context}`;
+            callApi(query);
         }
     });
 
@@ -190,6 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Optionally, show an error toast
         });
     });
+
+    // Llamar a fetchUsage al cargar la página
+    fetchUsage();
 
                 document.getElementById('download-button').addEventListener('click', () => {
                 const textToDownload = resultcontent.innerText;
@@ -212,6 +229,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-    // --- Inicialización ---
-    fetchInitialUsage();
 });
