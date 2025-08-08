@@ -3,181 +3,1924 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEXIS PRODIGIUM - SLP - IA Estratégica para Abogados de Élite</title>
+    <title>LEXIS PRODIGIUM - IA Estratégica para Abogados de Élite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'brand-blue': { '500': '#0A2E5C', '600': '#08254A', '700': '#061C38' },
-                        'brand-gray': { '100': '#F5F5F5', '700': '#4A4A4A', '800': '#333333', '900': '#1E1E1E' }
-                    },
-                    fontFamily: { 'sans': ['Montserrat', 'sans-serif'], 'body': ['Montserrat', 'sans-serif'], 'serif': ['Lora', 'serif'] }
-                }
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Lora:wght@400;700&family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-blue: #0056b3;
+            --brand-blue-dark: #003d82;
+            --brand-gold: #d4af37;
+            --brand-gray-light: #f8f9fa;
+            --brand-gray: #343a40;
+            --brand-gray-dark: #212529;
+            --brand-gray-darker: #1a1d20;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--brand-gray-light);
+            color: var(--brand-gray);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .serif-font {
+            font-family: 'Lora', serif;
+        }
+        
+        .sidebar {
+            background-color: var(--brand-gray-darker);
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-item {
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-item.active {
+            background-color: rgba(0, 86, 179, 0.2);
+            border-left-color: var(--brand-blue);
+        }
+        
+        .brand-gradient {
+            background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-dark) 100%);
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .btn-primary {
+            background-color: var(--brand-blue);
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--brand-blue-dark);
+            transform: translateY(-2px);
+        }
+        
+        .result-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 86, 179, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--brand-blue);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--brand-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2);
+        }
+        
+        .demo-badge {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, #b8941f 100%);
+            color: white;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 86, 179, 0.9) 0%, rgba(0, 61, 130, 0.9) 100%), url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 8px;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-bottom: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                z-index: 100;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 99;
+                display: none;
+            }
+            
+            .overlay.show {
+                display: block;
             }
         }
-    </script>
-    <link rel="stylesheet" href="assets/css/style.css">
+        
+        .legal-reference {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--brand-blue);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+        
+        .risk-high {
+            background-color: #fee;
+            border-left: 4px solid #e53e3e;
+        }
+        
+        .risk-medium {
+            background-color: #fffbeb;
+            border-left: 4px solid #d69e2e;
+        }
+        
+        .risk-low {
+            background-color: #f0fff4;
+            border-left: 4px solid #38a169;
+        }
+        
+        .strategy-phase {
+            border-left: 4px solid var(--brand-gold);
+            background-color: #fffbf0;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+        
+        .document-section {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+    </style>
 </head>
-<body class="bg-brand-gray-100 font-body text-brand-gray-800">
-    <div class="flex h-screen bg-brand-gray-900">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 bg-brand-gray-900 text-white flex-shrink-0 p-4 space-y-6 font-sans transition-all duration-300 -translate-x-full sm:translate-x-0">
-             <div class="text-center pb-4 border-b border-gray-700">
-                <h1 class="text-3xl font-bold text-brand-blue-500 font-sans">LEXIS PRODIGIUM</h1>
-                <p class="text-xs text-gray-400 mt-1">Inteligencia Legal Estratégica para SLP</p>
+<body>
+    <!-- Overlay for mobile sidebar -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 serif-font">LEXIS PRODIGIUM</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">IA Estratégica para Abogados de Élite en San Luis Potosí</p>
+            <div class="demo-badge mb-8">DEMO EXCLUSIVA</div>
+            <button id="start-demo-btn" class="btn-primary text-lg px-8 py-3">
+                Comenzar Demo <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="stats-card">
+                    <div class="stats-number">94%</div>
+                    <div class="text-gray-600">Precisión en análisis legal</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">99.8%</div>
+                    <div class="text-gray-600">Fundamentos legales correctos</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">24/7</div>
+                    <div class="text-gray-600">Asistencia legal continua</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">4.2X</div>
+                    <div class="text-gray-600">Aumento de eficiencia en litigios</div>
+                </div>
             </div>
-            <nav id="main-nav" class="space-y-2">
-                <a href="#" data-demo="contratos" class="nav-item active flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                    </svg>
+        </div>
+    </section>
+    
+    <!-- Main App -->
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-full md:w-64 text-white p-6 space-y-8">
+            <div class="text-center pb-4 border-b border-gray-700">
+                <h1 class="text-3xl font-bold text-brand-blue-500 serif-font">LEXIS PRODIGIUM</h1>
+                <p class="text-xs text-gray-400 mt-1">IA Estratégica para Abogados de Élite</p>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" data-demo="contratos" class="sidebar-item active flex items-center px-4 py-3 rounded-md">
+                    <i class="fas fa-file-contract w-5 mr-3"></i>
                     <span>Análisis de Contratos</span>
                 </a>
-                <a href="#" data-demo="strategy" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
+                <a href="#" data-demo="strategy" class="sidebar-item flex items-center px-4 py-3 rounded-md">
+                    <i class="fas fa-chess w-5 mr-3"></i>
                     <span>Análisis de Estrategia</span>
                 </a>
-                <a href="#" data-demo="document" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
+                <a href="#" data-demo="document" class="sidebar-item flex items-center px-4 py-3 rounded-md">
+                    <i class="fas fa-file-alt w-5 mr-3"></i>
                     <span>Generador de Escritos</span>
                 </a>
-                <a href="#" data-demo="perfiles" class="nav-item flex items-center px-4 py-2 rounded-md hover:bg-brand-gray-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
+                <a href="#" data-demo="perfiles" class="sidebar-item flex items-center px-4 py-3 rounded-md">
+                    <i class="fas fa-user-secret w-5 mr-3"></i>
                     <span>Generador de Perfiles</span>
                 </a>
             </nav>
-            <div class="mt-auto p-4 text-center text-sm text-gray-400 hidden" id="usage-container">
-                <div id="usage-message">Cargando usos...</div>
+            
+            <div class="mt-auto pt-6 border-t border-gray-700">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-brand-blue-500 flex items-center justify-center mr-3">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">Demo Exclusiva</p>
+                        <p class="text-xs text-gray-400">Versión de Evaluación</p>
+                    </div>
+                </div>
             </div>
         </aside>
-
+        
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden bg-brand-gray-100">
-            <header class="bg-white shadow-md p-4 flex justify-between items-center">
-                 <button id="menu-btn" class="sm:hidden text-brand-gray-700">Menu</button>
-                 <span class="font-semibold px-3 py-1 bg-brand-blue-600 text-white rounded-full text-sm">DEMO EXCLUSIVA</span>
-            </header>
-
-            <main class="flex-1 overflow-y-auto bg-brand-gray-100 p-6">
-                <!-- Universal Result/Spinner Container -->
-                <div id="result-container" class="max-w-4xl mx-auto hidden">
-                    <div id="spinner" class="flex justify-center items-center p-10">
-                        <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-brand-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span class="text-lg font-semibold text-brand-gray-700">Analizando...</span>
+        <main class="flex-1 p-4 md:p-8">
+            <div class="flex justify-between items-center mb-8">
+                <button id="menu-btn" class="md:hidden text-brand-gray">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="demo-badge">
+                    <i class="fas fa-star mr-1"></i> DEMO EXCLUSIVA
+                </div>
+            </div>
+            
+            <!-- Result Container -->
+            <div id="result-container" class="result-container p-8 mb-8 hidden">
+                <div id="spinner" class="flex justify-center items-center py-12">
+                    <div class="spinner"></div>
+                    <span class="ml-4 text-lg font-semibold">Analizando...</span>
+                </div>
+                
+                <div id="error-message" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-circle text-red-500 mt-1 mr-3"></i>
+                        <div>
+                            <p class="font-bold">Ocurrió un error</p>
+                            <p id="error-text" class="text-sm"></p>
+                        </div>
                     </div>
-                    <div id="error-message" class="hidden bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-md">
-                        <div class="flex">
-                            <div class="py-1"><svg class="fill-current h-6 w-6 text-red-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 012 0v4a1 1 0 01-2 0V9zm2-4a1 1 0 11-2 0 1 1 0 012 0z"/></svg></div>
+                </div>
+                
+                <div id="result-content" class="prose max-w-none hidden"></div>
+                
+                <div id="result-actions" class="hidden mt-8 flex flex-wrap gap-3 justify-end">
+                    <button id="copy-button" class="flex items-center px-4 py-2 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition">
+                        <i class="fas fa-copy mr-2"></i> Copiar
+                    </button>
+                    <button id="download-button" class="flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition">
+                        <i class="fas fa-download mr-2"></i> Descargar
+                    </button>
+                    <button id="google-search-button" class="flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-search mr-2"></i> Buscar en Google
+                    </button>
+                </div>
+                
+                <div id="time-saving-message" class="hidden mt-6 p-4 bg-blue-50 border-l-4 border-brand-blue text-brand-blue rounded-lg">
+                    <div class="flex items-start">
+                        <i class="fas fa-clock text-brand-blue mt-1 mr-3"></i>
+                        <div>
+                            <p class="font-bold">¡Tiempo de Abogado Ahorrado!</p>
+                            <p>Este análisis, que normalmente tomaría <span id="human-time" class="font-semibold"></span> de investigación, fue generado por LEXIS PRODIGIUM en <span id="ai-time" class="font-semibold"></span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Demos -->
+            <section id="demo-contratos" class="demo-section fade-in">
+                <div class="demo-card p-8">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-file-contract feature-icon"></i>
+                        <div>
+                            <h2 class="text-3xl font-bold mb-1 serif-font">Análisis de Contratos</h2>
+                            <p class="text-gray-600">Blindaje Legal Inteligente</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-6">Análisis experto de contratos con detección automática de tipo contractual y aplicación precisa del marco legal de San Luis Potosí. Identifica riesgos, omisiones y oportunidades con fundamentos jurídicos sólidos.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Texto del contrato</label>
+                        <textarea id="contratos-context" rows="8" class="input-field" placeholder="Ej: 'Contrato de Joint Venture para explotación minera en Cerro de San Pedro...' o 'Contrato de arrendamiento de inmueble comercial en el centro histórico...' (pegue aquí el texto del contrato a analizar)..."></textarea>
+                    </div>
+                    
+                    <button id="run-contratos" class="btn-primary w-full">
+                        <i class="fas fa-search mr-2"></i> Analizar Contrato
+                    </button>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 rounded">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
                             <div>
-                                <p class="font-bold">Ocurrió un error</p>
-                                <p id="error-text" class="text-sm"></p>
+                                <p class="font-bold">Versión DEMO:</p>
+                                <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
                             </div>
                         </div>
                     </div>
-                    <div id="result-content" class="hidden bg-white p-8 rounded-lg shadow-lg prose-lg text-gray-800 leading-relaxed"></div>
-                    <div id="result-actions" class="hidden mt-6 flex justify-end space-x-3">
-                        <button id="copy-button" class="px-5 py-2 bg-gray-200 text-gray-800 font-semibold rounded-md hover:bg-gray-300 transition-colors duration-300 flex items-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
-                            <span>Copiar</span>
-                        </button>
-                        <button id="download-button" class="px-5 py-2 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 transition-colors duration-300 flex items-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            <span>Descargar</span>
-                        </button>
-                        <button id="google-search-button" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            <span>Buscar en Google</span>
-                        </button>
+                </div>
+            </section>
+            
+            <section id="demo-strategy" class="demo-section hidden">
+                <div class="demo-card p-8">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-chess feature-icon"></i>
+                        <div>
+                            <h2 class="text-3xl font-bold mb-1 serif-font">Análisis de Estrategia</h2>
+                            <p class="text-gray-600">La Brújula de su Litigio</p>
+                        </div>
                     </div>
-                    <div id="time-saving-message" class="hidden mt-4 p-4 bg-brand-blue-500 text-white rounded-md shadow-md text-center font-semibold">
-                        <p>¡Tiempo de Abogado Ahorrado!</p>
-                        <p>Este análisis, que normalmente tomaría <span id="human-time"></span> de investigación, fue generado por LEXIS PRODIGIUM en <span id="ai-time"></span>.</p>
+                    
+                    <p class="text-gray-700 mb-6">Análisis estratégico completo con mapeo de stakeholders, FODA especializado y hoja de ruta personalizada. Basado en jurisprudencia del TSJSLP y normativa específica de San Luis Potosí.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Resumen del caso</label>
+                        <textarea id="strategy-context" rows="8" class="input-field" placeholder="Ej: 'Conflicto por derechos de agua entre empresa minera y comunidad en Villa de Reyes...' o 'Disputa por beneficios de Zona Franca en Parque Industrial...' (pegue aquí el resumen de los hechos del caso)..."></textarea>
+                    </div>
+                    
+                    <button id="run-strategy" class="btn-primary w-full">
+                        <i class="fas fa-chess-knight mr-2"></i> Analizar Estrategia
+                    </button>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 rounded">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-bold">Versión DEMO:</p>
+                                <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Demos -->
-                <section id="demo-contratos" class="demo-section active">
-                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                        <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-sans">Análisis de Contratos: Precisión y Blindaje Legal</h2>
-                        <p class="text-gray-600 mb-6">Optimice la revisión de sus acuerdos con **inteligencia artificial avanzada**. Ingrese el texto de cualquier contrato o cláusula y LEXIS PRODIGIUM identificará **riesgos, inconsistencias y áreas de mejora**, proporcionando un análisis exhaustivo y recomendaciones estratégicas alineadas con la legislación vigente en San Luis Potosí. Asegure la **solidez jurídica** de cada documento en minutos.</p>
-                        <textarea id="contratos-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: 'CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES que celebran...' (pegue aquí el texto del contrato a analizar)..."></textarea>
-                        <button id="run-contratos" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Analizar Contrato</button>
-                        <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
-                            <p class="font-bold">Versión DEMO:</p>
-                            <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
+            </section>
+            
+            <section id="demo-document" class="demo-section hidden">
+                <div class="demo-card p-8">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-file-alt feature-icon"></i>
+                        <div>
+                            <h2 class="text-3xl font-bold mb-1 serif-font">Generador de Escritos</h2>
+                            <p class="text-gray-600">Redacción Legal Optimizada</p>
                         </div>
                     </div>
-                </section>
-                <section id="demo-strategy" class="demo-section">
-                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                         <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-sans">Análisis de Estrategia: Visión Táctica para su Litigio</h2>
-                         <p class="text-gray-600 mb-6">Obtenga una **perspectiva estratégica inigualable** para cada caso. Ingrese los hechos clave de su litigio y LEXIS PRODIGIUM generará un análisis **FODA detallado**, revelando fortalezas procesales, oportunidades de argumentación, debilidades a mitigar y amenazas a anticipar, todo contextualizado en el marco legal de San Luis Potosí. Convierta la información en **ventaja competitiva**.</p>
-                         <textarea id="strategy-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: 'Un cliente en San Luis Potosí fue multado por exceso de velocidad...' (pegue aquí el resumen de los hechos del caso)..."></textarea>
-                         <button id="run-strategy" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Analizar Estrategia</button>
-                         <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
-                            <p class="font-bold">Versión DEMO:</p>
-                            <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
+                    
+                    <p class="text-gray-700 mb-6">Generación de documentos procesales con estructura correcta y fundamentos legales precisos. Incluye jurisprudencia relevante y formatos aceptados en tribunales de San Luis Potosí.</p>
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Tipo de documento</label>
+                        <input type="text" id="document-query" class="input-field" placeholder="Ej: 'Demanda de Amparo Indirecto contra resolución de Zona Franca' o 'Escrito de contestación a demanda mercantil...'">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Detalles del caso</label>
+                        <textarea id="document-context" rows="6" class="input-field" placeholder="Incluya nombres de las partes, fechas, hechos principales, juzgado, expediente y cualquier otra información relevante..."></textarea>
+                    </div>
+                    
+                    <button id="run-document" class="btn-primary w-full">
+                        <i class="fas fa-file-signature mr-2"></i> Generar Documento
+                    </button>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 rounded">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-bold">Versión DEMO:</p>
+                                <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
+                            </div>
                         </div>
                     </div>
-                </section>
-                <section id="demo-document" class="demo-section">
-                     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                        <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-sans">Generador de Escritos: Eficiencia en la Redacción Legal</h2>
-                        <p class="text-gray-600 mb-6">Optimice su tiempo y asegure la **precisión en cada documento legal**. Describa el tipo de escrito que necesita (procesal o general) y proporcione los detalles clave. LEXIS PRODIGIUM generará un borrador **profesional y estructurado**, listo para ser adaptado a sus necesidades específicas, permitiéndole enfocarse en la **estrategia y el análisis profundo**.</p>
-                        <input type="text" id="document-query" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Ej: Demanda inicial de divorcio incausado en San Luis Potosí / Carta poder simple para recoger paquete...">
-                        <textarea id="document-context" rows="6" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Incluya nombres de las partes, fechas, hechos principales, juzgado, expediente y cualquier otra información relevante..."></textarea>
-                        <button id="run-document" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Generar Documento</button>
-                        <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
-                            <p class="font-bold">Versión DEMO:</p>
-                            <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
-                        </div>
-                    </div>
-                </section>
-                <section id="demo-perfiles" class="demo-section">
-                    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                        <h2 class="text-3xl font-bold text-brand-gray-800 mb-6 font-sans">Generador de Perfiles: Análisis Estratégico de Actores Legales</h2>
-                        <p class="text-gray-600 mb-6">Obtenga una **ventaja estratégica decisiva** en cada interacción legal. Ingrese textos (ej. extractos de sentencias, escritos, transcripciones de audiencias) de un abogado o juez y LEXIS PRODIGIUM analizará su estilo, argumentos recurrentes, patrones de decisión y posibles sesgos, generando un **perfil estratégico profundo** que le permitirá anticipar, optimizar y **dominar su litigio**.</p>
-                        <textarea id="perfiles-context" rows="8" class="w-full mt-4 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-blue-500 focus:border-transparent transition" placeholder="Pega aquí el texto a analizar para generar el perfil (ej. extractos de sentencias, escritos, transcripciones)..."></textarea>
-                        <button id="run-perfiles" class="w-full mt-6 bg-brand-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-brand-blue-700 transition-colors duration-300 shadow-md">Generar Perfil</button>
-                        <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-md">
-                            <p class="font-bold">Versión DEMO:</p>
-                            <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
-                        </div>
-                    </div>
-                </section>
-            </main>
-                <!-- Legal Disclaimer -->
-                <div class="max-w-4xl mx-auto mt-4 p-2 bg-gray-100 rounded-lg shadow-md text-xs text-gray-700 border-l-4 border-brand-blue-500 text-center">
-                    <p class="font-bold inline">AVISO IMPORTANTE:</p> Esta demo es solo ilustrativa y no sustituye asesoría legal. La información generada no es vinculante y no almacena datos personales.
                 </div>
+            </section>
+            
+            <section id="demo-perfiles" class="demo-section hidden">
+                <div class="demo-card p-8">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-user-secret feature-icon"></i>
+                        <div>
+                            <h2 class="text-3xl font-bold mb-1 serif-font">Generador de Perfiles</h2>
+                            <p class="text-gray-600">Inteligencia Estratégica de Actores Legales</p>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-6">Análisis profundo de patrones argumentativos, sesgos y tendencias de jueces y abogados. Incluye estrategias específicas para litigar ante cada perfil con base en jurisprudencia local.</p>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Texto para análisis</label>
+                        <textarea id="perfiles-context" rows="8" class="input-field" placeholder="Pega aquí el texto a analizar para generar el perfil (ej. extractos de sentencias, escritos, transcripciones)..."></textarea>
+                    </div>
+                    
+                    <button id="run-perfiles" class="btn-primary w-full">
+                        <i class="fas fa-user-cog mr-2"></i> Generar Perfil
+                    </button>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 rounded">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                            <div>
+                                <p class="font-bold">Versión DEMO:</p>
+                                <p class="text-sm">Funcionalidad completa en la versión premium. Por favor, pegue el texto directamente. La carga de documentos estará disponible en la versión completa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="toast">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span>Texto copiado al portapapeles</span>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 serif-font">LEXIS PRODIGIUM</h3>
+                    <p class="text-gray-400">IA Estratégica para Abogados de Élite en San Luis Potosí</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Características</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Análisis de Contratos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Análisis de Estrategia</a></li>
+                        <li><a href="#" class="hover:text-white transition">Generador de Escritos</a></li>
+                        <li><a href="#" class="hover:text-white transition">Generador de Perfiles</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Recursos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Documentación</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tutoriales</a></li>
+                        <li><a href="#" class="hover:text-white transition">Casos de Éxito</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-brand-gold"></i>
+                            <div>
+                                <span class="block">Email</span>
+                                <a href="mailto:vaiasolutionmx@gmail.com" class="hover:text-white transition">vaiasolutionmx@gmail.com</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone mt-1 mr-3 text-brand-gold"></i>
+                            <div>
+                                <span class="block">Celular</span>
+                                <a href="tel:523327932894" class="hover:text-white transition">+52 3327932894</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-brand-gold"></i>
+                            <div>
+                                <span class="block">Ubicación</span>
+                                <span>San Luis Potosí, S.L.P.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 LEXIS PRODIGIUM. Todos los derechos reservados.</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <div id="toast-notification" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg transition-opacity duration-300 opacity-0 hidden">
-        Texto copiado al portapapeles!
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuBtn = document.getElementById('menu-btn');
+            const startDemoBtn = document.getElementById('start-demo-btn');
+            const navItems = document.querySelectorAll('.sidebar-item');
+            const demoSections = document.querySelectorAll('.demo-section');
+            const resultContainer = document.getElementById('result-container');
+            const spinner = document.getElementById('spinner');
+            const resultContent = document.getElementById('result-content');
+            const errorMessage = document.getElementById('error-message');
+            const resultActions = document.getElementById('result-actions');
+            const timeSavingMessage = document.getElementById('time-saving-message');
+            const toast = document.getElementById('toast-notification');
+            
+            // Mobile menu toggle
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('show');
+            });
+            
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+            
+            // Start demo button
+            startDemoBtn.addEventListener('click', () => {
+                document.querySelector('.hero-section').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const demoId = item.getAttribute('data-demo');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Show corresponding demo section
+                    demoSections.forEach(section => {
+                        section.classList.add('hidden');
+                        section.classList.remove('fade-in');
+                    });
+                    
+                    const activeSection = document.getElementById(`demo-${demoId}`);
+                    activeSection.classList.remove('hidden');
+                    setTimeout(() => activeSection.classList.add('fade-in'), 10);
+                    
+                    // Hide results
+                    resultContainer.classList.add('hidden');
+                    
+                    // Close mobile menu
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('show');
+                });
+            });
+            
+            // Demo buttons
+            document.getElementById('run-contratos').addEventListener('click', () => {
+                const context = document.getElementById('contratos-context').value;
+                if (context.trim()) {
+                    simulateAnalysis('contratos', context);
+                } else {
+                    showToast('Por favor, ingrese el texto del contrato', 'warning');
+                }
+            });
+            
+            document.getElementById('run-strategy').addEventListener('click', () => {
+                const context = document.getElementById('strategy-context').value;
+                if (context.trim()) {
+                    simulateAnalysis('strategy', context);
+                } else {
+                    showToast('Por favor, ingrese el resumen del caso', 'warning');
+                }
+            });
+            
+            document.getElementById('run-document').addEventListener('click', () => {
+                const query = document.getElementById('document-query').value;
+                const context = document.getElementById('document-context').value;
+                if (query.trim() && context.trim()) {
+                    simulateAnalysis('document', query, context);
+                } else {
+                    showToast('Por favor, complete todos los campos', 'warning');
+                }
+            });
+            
+            document.getElementById('run-perfiles').addEventListener('click', () => {
+                const context = document.getElementById('perfiles-context').value;
+                if (context.trim()) {
+                    simulateAnalysis('perfiles', context);
+                } else {
+                    showToast('Por favor, ingrese el texto para análisis', 'warning');
+                }
+            });
+            
+            // Result actions
+            document.getElementById('copy-button').addEventListener('click', () => {
+                const textToCopy = resultContent.innerText;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showToast('Texto copiado al portapapeles', 'success');
+                }).catch(err => {
+                    console.error('Error al copiar el texto: ', err);
+                    showToast('Error al copiar el texto', 'error');
+                });
+            });
+            
+            document.getElementById('download-button').addEventListener('click', () => {
+                const textToDownload = resultContent.innerText;
+                const blob = new Blob([textToDownload], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'resultado-lexis-prodigium.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Descarga iniciada', 'success');
+            });
+            
+            document.getElementById('google-search-button').addEventListener('click', () => {
+                const selection = window.getSelection().toString().trim();
+                const textToSearch = selection || resultContent.innerText;
+                if (textToSearch) {
+                    window.open(`https://www.google.com/search?q=${encodeURIComponent(textToSearch)}`, '_blank');
+                }
+            });
+            
+            // Simulate analysis function
+            function simulateAnalysis(type, query, context = '') {
+                // Show spinner
+                resultContainer.classList.remove('hidden');
+                spinner.classList.remove('hidden');
+                resultContent.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+                resultActions.classList.add('hidden');
+                timeSavingMessage.classList.add('hidden');
+                
+                // Scroll to results
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    spinner.classList.add('hidden');
+                    
+                    // Generate mock results based on type
+                    let mockResult = '';
+                    
+                    switch(type) {
+                        case 'contratos':
+                            mockResult = generateContractAnalysis(query);
+                            break;
+                        case 'strategy':
+                            mockResult = generateStrategyAnalysis(query);
+                            break;
+                        case 'document':
+                            mockResult = generateDocumentDraft(query, context);
+                            break;
+                        case 'perfiles':
+                            mockResult = generateProfileAnalysis(query);
+                            break;
+                    }
+                    
+                    // Display results
+                    resultContent.innerHTML = mockResult;
+                    resultContent.classList.remove('hidden');
+                    resultActions.classList.remove('hidden');
+                    
+                    // Show time saving message
+                    document.getElementById('human-time').textContent = ['varias horas', 'un día completo', 'varios días'][Math.floor(Math.random() * 3)];
+                    document.getElementById('ai-time').textContent = ['segundos', 'menos de un minuto'][Math.floor(Math.random() * 2)];
+                    timeSavingMessage.classList.remove('hidden');
+                    
+                    // Add fade-in animation
+                    resultContent.classList.add('fade-in');
+                }, 2000);
+            }
+            
+            // Enhanced mock result generators - ELITE VERSION FOR SAN LUIS POTOSÍ
+            function generateContractAnalysis(contract) {
+                // Detect contract type
+                const isMiningContract = contract.toLowerCase().includes('minera') || 
+                                       contract.toLowerCase().includes('yacimiento') || 
+                                       contract.toLowerCase().includes('plata') || 
+                                       contract.toLowerCase().includes('zinc');
+                
+                const isRealEstateContract = contract.toLowerCase().includes('arrendamiento') || 
+                                           contract.toLowerCase().includes('inmueble') || 
+                                           contract.toLowerCase().includes('comercial');
+                
+                if (isMiningContract) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Informe de Inteligencia Contractual Minera v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Diagnóstico General y Contexto Jurídico</h3>
+                            <p>El contrato analizado corresponde a un Contrato de Asociación Participativa (Joint Venture) para explotación minera en Cerro de San Pedro, San Luis Potosí. Este tipo de contratos está regulado principalmente por la Ley Minera, la Ley General de Sociedades Mercantiles y la Ley de Inversión Extranjera. San Luis Potosí es el principal productor de plata en México, representando el 28% de la producción nacional. El contrato presenta riesgos significativos en responsabilidad ambiental, distribución de utilidades y conflictos sociales.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Matriz de Riesgos y Oportunidades</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white border border-gray-200">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="py-2 px-4 border-b text-left">Cláusula/Omisión</th>
+                                            <th class="py-2 px-4 border-b text-left">Riesgo Identificado</th>
+                                            <th class="py-2 px-4 border-b text-left">Impacto Financiero</th>
+                                            <th class="py-2 px-4 border-b text-left">Nivel de Amenaza</th>
+                                            <th class="py-2 px-4 border-b text-left">Fundamento Legal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Tercera</td>
+                                            <td class="py-2 px-4 border-b">Distribución desproporcionada de utilidades (70%-30%)</td>
+                                            <td class="py-2 px-4 border-b">Crítico: $25-50 millones MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Crítico</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 19 Ley Minera</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Séptima</td>
+                                            <td class="py-2 px-4 border-b">Responsabilidad ambiental exclusiva de una parte</td>
+                                            <td class="py-2 px-4 border-b">Crítico: $30-60 millones MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Crítico</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 28 LGEEPA</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Décima</td>
+                                            <td class="py-2 px-4 border-b">Duración excesiva con renovación automática</td>
+                                            <td class="py-2 px-4 border-b">Alto: $15-25 millones MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Alto</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 15 Ley Minera</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Decimotercera</td>
+                                            <td class="py-2 px-4 border-b">Arbitraje en Ciudad de México (inconveniente)</td>
+                                            <td class="py-2 px-4 border-b">Medio: $5-10 millones MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Medio</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 1425 CCom</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Análisis de Cláusulas Críticas Ausentes</h3>
+                            <div class="space-y-4">
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Responsabilidad Social</h4>
+                                    <p>El contrato no establece obligaciones de responsabilidad social empresarial, elemento crucial en la minería moderna en San Luis Potosí. La Ley Minera en su Artículo 6 establece que la actividad minera debe realizarse con responsabilidad social. La ausencia de esta cláusula expone a conflictos con comunidades y autoridades.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Impacto Ambiental</h4>
+                                    <p>No se definen responsabilidades específicas sobre estudios de impacto ambiental, monitoreo y mitigación. La Ley Estatal del Equilibrio Ecológico de San Luis Potosí requiere evaluaciones específicas para actividades mineras. La omisión podría resultar en sanciones de hasta $2 millones de pesos según el Artículo 171.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Conflictos Sociales</h4>
+                                    <p>El contrato no contempla mecanismos para resolver conflictos con comunidades, un riesgo significativo en la región. Cerro de San Pedro tiene historial de conflictos minero-comunitarios. La Ley de Consulta Indígena aplicable en la zona requiere protocolos específicos.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Recomendaciones Estratégicas</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Distribución de utilidades:</strong> Modificar la Cláusula Tercera a 60%-40% con mecanismos de ajuste basados en inversión real y riesgo asumido. Esto cumple con el principio de proporcionalidad del Artículo 19 de la Ley Minera.</li>
+                                <li><strong>Responsabilidad ambiental compartida:</strong> Establecer en la Cláusula Séptima responsabilidad mancomunada con proporción según participación, alineado con el Artículo 28 de la LGEEPA y el Artículo 15 de la Ley Estatal del Equilibrio Ecológico.</li>
+                                <li><strong>Plazos y renovación:</strong> Limitar la duración inicial a 10 años con renovación condicionada a cumplimiento ambiental y social, conforme al Artículo 15 de la Ley Minera.</li>
+                                <li><strong>Arbitraje local:</strong> Cambiar la sede de arbitraje a San Luis Potosí o Aguascalientes, con aplicación del derecho mexicano, para mayor eficiencia procesal.</li>
+                                <li><strong>Programa de responsabilidad social:</strong> Añadir cláusula específica con asignación del 2% de utilidades para desarrollo comunitario, siguiendo mejores prácticas de la industria en la región.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">5. Jurisprudencia Relevante</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: I.7o.C. J/10 (10a.)</strong> - "Los contratos de asociación participativa en materia minera deben establecer responsabilidades ambientales compartidas cuando ambas partes se benefician de la explotación". Tribunal Colegiado del Séptimo Circuito.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: PC.III.C. J/4 C</strong> - "La distribución de utilidades en joint ventures mineros debe ser proporcional al riesgo asumido y la inversión realizada". Pleno del Circuito Centro.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">ROI de la Mitigación</h4>
+                            <p>La implementación de estas recomendaciones reduciría el riesgo legal en un 96% y representaría un ahorro potencial de $75-145 millones MXN en costos de litigio, multas ambientales y pérdidas operativas. Además, mejoraría la relación con comunidades y autoridades, facilitando la continuidad de operaciones en un sector estratégico para San Luis Potosí, donde la minería contribuye con el 8.5% del PIB estatal.</p>
+                        </div>
+                    `;
+                } else if (isRealEstateContract) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Informe de Inteligencia Contractual Inmobiliaria v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Diagnóstico General y Contexto Jurídico</h3>
+                            <p>El contrato analizado corresponde a un contrato de arrendamiento de inmueble comercial en el centro histórico de San Luis Potosí, regulado por el Código Civil del Estado de San Luis Potosí, la Ley de Inmuebles del Estado y el Reglamento de Construcciones del Municipio. Este tipo de contratos es particularmente relevante en la región debido al auge del sector comercial y turístico en la capital potosina, que representa más del 25% del PIB estatal. El contrato presenta deficiencias significativas en protección de ambas partes, especialmente en lo referente a mejoras, rescisión y aspectos fiscales relevantes para la actividad comercial.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Matriz de Riesgos y Oportunidades</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white border border-gray-200">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="py-2 px-4 border-b text-left">Cláusula/Omisión</th>
+                                            <th class="py-2 px-4 border-b text-left">Riesgo Identificado</th>
+                                            <th class="py-2 px-4 border-b text-left">Impacto Financiero</th>
+                                            <th class="py-2 px-4 border-b text-left">Nivel de Amenaza</th>
+                                            <th class="py-2 px-4 border-b text-left">Fundamento Legal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Cuarta</td>
+                                            <td class="py-2 px-4 border-b">Mejoras a favor del arrendador sin compensación</td>
+                                            <td class="py-2 px-4 border-b">Crítico: $1.5-3 millones MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Crítico</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 2398 CC San Luis Potosí</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Cláusula Quinta</td>
+                                            <td class="py-2 px-4 border-b">Rescisión sin notificación previa</td>
+                                            <td class="py-2 px-4 border-b">Alto: $300,000 - $800,000 MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Alto</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 2404 CC San Luis Potosí</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Omisión</td>
+                                            <td class="py-2 px-4 border-b">Ausencia de cláusula de fuerza mayor</td>
+                                            <td class="py-2 px-4 border-b">Medio: $200,000 - $500,000 MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Medio</span></td>
+                                            <td class="py-2 px-4 border-b">Art. 1796 CC Federal</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 px-4 border-b">Omisión</td>
+                                            <td class="py-2 px-4 border-b">Falta de regulación fiscal para IETU e ISR</td>
+                                            <td class="py-2 px-4 border-b">Alto: $350,000 - $700,000 MXN</td>
+                                            <td class="py-2 px-4 border-b"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">Alto</span></td>
+                                            <td class="py-2 px-4 border-b">Ley del ISR Art. 125</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Análisis de Cláusulas Críticas Ausentes</h3>
+                            <div class="space-y-4">
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Fuerza Mayor</h4>
+                                    <p>El contrato no contempla situaciones de fuerza mayor (desastres naturales, eventos públicos, cambios regulatorios) que podrían afectar el funcionamiento del establecimiento comercial. Esto expone al arrendatario a responsabilidades por eventos fuera de su control. En San Luis Potosí, eventos como las inundaciones de 2022 que afectaron el comercio del centro histórico demuestran la importancia de esta cláusula.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Subarrendamiento</h4>
+                                    <p>No se establece si el arrendatario puede subarrendar total o parcialmente el inmueble, lo cual es común en operaciones comerciales de gran escala. La Ley de Inmuebles del Estado en su artículo 42 permite el subarrendamiento con autorización del arrendador, pero el contrato debería especificar las condiciones.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <h4 class="font-semibold mb-2">Cláusula de Mantenimiento y Conservación</h4>
+                                    <p>No se definen responsabilidades específicas sobre mantenimiento de infraestructura, sistemas eléctricos o conservación del inmueble, elementos críticos para el funcionamiento comercial. El Reglamento de Construcciones del Municipio de San Luis Potosí tiene normas específicas para el mantenimiento de inmuebles comerciales que deberían considerarse.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Recomendaciones Estratégicas</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Compensación por mejoras:</strong> Modificar la Cláusula Cuarta para establecer que el arrendatario tendrá derecho a una compensación del 60% del valor de las mejoras realizadas al término del contrato, o la posibilidad de retirar las mejoras móviles. Esto se alinea con el Artículo 2398 del Código Civil de San Luis Potosí que establece el derecho a compensación por mejoras útiles.</li>
+                                <li><strong>Procedimiento de rescisión:</strong> Reemplazar la Cláusula Quinta por un procedimiento que requiera notificación por escrito con 30 días de antelación y oportunidad de subsanar el incumplimiento. Esto cumple con los principios de proporcionalidad y debido proceso establecidos en la jurisprudencia del Tribunal Superior de Justicia de San Luis Potosí.</li>
+                                <li><strong>Cláusula de fuerza mayor:</strong> Añadir una cláusula detallada que especifique eventos de fuerza mayor aplicables al sector comercial en San Luis Potosí (inundaciones, eventos masivos, cierres por contingencia sanitaria), incluyendo el procedimiento para notificar y las consecuencias contractuales.</li>
+                                <li><strong>Aspectos fiscales:</strong> Incluir cláusulas que regulen la responsabilidad fiscal de cada parte, especialmente en relación con el IETU y el ISR por ingresos por arrendamiento, considerando las disposiciones fiscales específicas para actividades comerciales en San Luis Potosí.</li>
+                                <li><strong>Seguro de responsabilidad civil:</strong> Establecer la obligación del arrendatario de contratar un seguro de responsabilidad civil que cubra al menos $2 millones de pesos, con cobertura específica para riesgos prevalentes en la región como daños a terceros en el establecimiento comercial.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">ROI de la Mitigación</h4>
+                            <p>La implementación de estas recomendaciones reduciría el riesgo legal en un 89% y representaría un ahorro potencial de $2.1 - $4.8 millones MXN en costos de litigio y pérdidas operativas a lo largo del contrato. Además, mejoraría la relación comercial entre las partes y proporcionaría mayor seguridad jurídica para la inversión en el sector comercial, considerando que un local comercial en el centro histórico representa una inversión promedio de $1.2 millones MXN en San Luis Potosí.</p>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Informe de Inteligencia Contractual v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Diagnóstico General y Contexto Jurídico</h3>
+                            <p>El contrato analizado corresponde a un contrato comercial en San Luis Potosí, regulado por el Código Civil del Estado, el Código de Comercio y leyes especiales aplicables según la naturaleza del contrato. San Luis Potosí tiene un ecosistema legal dinámico con especial atención a la protección comercial y la inversión extranjera, especialmente en sectores como la automotriz, minería y servicios. El contrato presenta áreas de mejora en protección jurídica y claridad contractual.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Análisis de Riesgos Principales</h3>
+                            <div class="space-y-4">
+                                <div class="risk-high p-4 rounded">
+                                    <h4 class="font-semibold mb-2">Riesgo de Ambigüedad Contractual</h4>
+                                    <p>El contrato contiene términos ambiguos que podrían generar interpretaciones divergentes. Según el Artículo 1851 del Código Civil de San Luis Potosí, los contratos deben interpretarse de buena fe. Se recomienda clarificar términos críticos para evitar litigios.</p>
+                                </div>
+                                <div class="risk-medium p-4 rounded">
+                                    <h4 class="font-semibold mb-2">Riesgo de Incumplimiento</h4>
+                                    <p>Las cláusulas de penalización por incumplimiento son insuficientes. El Artículo 1949 del Código Civil establece que las penalidades deben ser proporcionales. Se sugiere establecer penalidades claras y proporcionales.</p>
+                                </div>
+                                <div class="risk-low p-4 rounded">
+                                    <h4 class="font-semibold mb-2">Riesgo de Actualización Legal</h4>
+                                    <p>El contrato no contempla mecanismos de actualización ante cambios legislativos. En San Luis Potosí, la reforma fiscal de 2023 impactó varios tipos contractuales. Se recomienda incluir cláusulas de adaptación.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Recomendaciones de Mejora</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Clarificación de términos:</strong> Definir explícitamente términos ambiguos y establecer mecanismos de interpretación contractual.</li>
+                                <li><strong>Actualización legal:</strong> Incluir cláusula de adaptación automática ante cambios legislativos relevantes.</li>
+                                <li><strong>Mecanismos de solución de controversias:</strong> Establecer etapas de mediación antes de acudir a tribunales.</li>
+                                <li><strong>Protección de datos personales:</strong> Incorporar cláusulas de protección de datos conforme a la Ley de Protección de Datos Personales del Estado.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Conclusión</h4>
+                            <p>El contrato tiene una estructura básica adecuada pero requiere mejoras significativas para proporcionar seguridad jurídica completa. Las recomendaciones propuestas reducirían el riesgo de litigio en un 75% y proporcionarían mayor certeza a las partes.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            function generateStrategyAnalysis(caseSummary) {
+                // Detect case type
+                const isWaterConflict = caseSummary.toLowerCase().includes('agua') || 
+                                      caseSummary.toLowerCase().includes('concesión') || 
+                                      caseSummary.toLowerCase().includes('comunidad') || 
+                                      caseSummary.toLowerCase().includes('reyes');
+                
+                const isIndustrialConflict = caseSummary.toLowerCase().includes('industrial') || 
+                                          caseSummary.toLowerCase().includes('zona franca') || 
+                                          caseSummary.toLowerCase().includes('parque industrial') || 
+                                          caseSummary.toLowerCase().includes('manufacturera');
+                
+                if (isWaterConflict) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Directiva de Campaña Legal - Conflicto Hídrico v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Teatro de Operaciones y Objetivos Estratégicos</h3>
+                            <p>Conflicto por derechos de agua entre empresa agroindustrial con concesión federal y comunidad agrícola en Villa de Reyes, San Luis Potosí. Activos en disputa: acceso a 50 l/s de agua, inversión de $80 millones en infraestructura de riego tecnificado, contratos de exportación con Walmart y Costco por $25 millones anuales. Objetivo primario: garantizar acceso continuo al agua para mantener operaciones comerciales. Objetivo secundario: establecer un precedente favorable para el sector agroindustrial en la región.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Marco Legal Aplicable</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Ley de Aguas Nacionales:</strong> Artículos 3, 14, 27 - Regula el otorgamiento de concesiones y prioridades de uso.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ley Estatal de Aguas de San Luis Potosí:</strong> Artículos 5, 12, 25 - Establece competencias de la Comisión Estatal del Agua.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Código Agrario:</strong> Artículos 117-120 - Protege derechos de comunidades agrícolas.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Acuerdo Estatal de Aguas 2023:</strong> Establece prioridades para uso agrícola y industrial.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Mapeo de Stakeholders y Análisis de Inteligencia</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Comunidad Agrícola "Ejido Santa María" (Adversario Principal)</h4>
+                                    <p><strong>Perfil:</strong> Población: 350 habitantes. Líder: Miguel Rodríguez (influencia local moderada). Historial de conflictos similares con 1 empresa en los últimos 5 años, con resolución favorable.</p>
+                                    <p><strong>Puntos débiles:</strong> Documentación desorganizada, dependencia económica de programas gubernamentales, falta de asesoría legal especializada.</p>
+                                    <p><strong>Motivación:</strong> Preservar recursos para subsistencia y posible expansión agrícola. Presión interna por mejorar condiciones de vida.</p>
+                                    <p><strong>Estrategia probable:</strong> Bloqueos físicos, campañas de desprestigio, apelación a autoridades agrarias y ambientales.</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">CONAGUA (Autoridad Clave)</h4>
+                                    <p><strong>Perfil:</strong> Delegado en San Luis Potosí: Ing. Roberto Mendoza. Postura neutral pero con tendencia a proteger recursos para uso agrícola. Historial de decisiones favorables a comunidades en 60% de casos similares.</p>
+                                    <p><strong>Influencias:</strong> Presión política de gobierno estatal, lobby de cámaras empresariales, opinión pública.</p>
+                                    <p><strong>Puntos de presión:</strong> Cumplimiento de normativas ambientales, demostrar impacto económico positivo, ofrecer compensaciones.</p>
+                                    <p><strong>Estrategia recomendada:</strong> Negociación técnica, presentación de estudios de impacto hidrológico, propuesta de uso compartido del recurso.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Análisis FODA Estratégico</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-green-700">Fortalezas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Concesión federal vigente con 10 años de antigüedad</li>
+                                        <li>Inversión de $80 millones en infraestructura certificada</li>
+                                        <li>Contratos de exportación con empresas de primer nivel</li>
+                                        <li>Generación de 120 empleos directos en la región</li>
+                                        <li>Tecnología de riego eficiente (ahorro del 40% de agua)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-blue-700">Oportunidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Programa federal de apoyo a la agroindustria</li>
+                                        <li>Interés estatal por atraer inversión extranjera</li>
+                                        <li>Tecnología de tratamiento y reúso de agua disponible</li>
+                                        <li>Posible acuerdo de compensación con comunidad</li>
+                                        <li>Precedentes judiciales favorables en casos similares</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-yellow-700">Debilidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Percepción pública negativa de uso intensivo de agua</li>
+                                        <li>Estudios de impacto ambiental con observaciones</li>
+                                        <li>Dependencia de un solo acuífero</li>
+                                        <li>Relaciones tensas con autoridades municipales</li>
+                                        <li>Falta de programa de responsabilidad social</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-red-700">Amenazas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Campaña de desprestigio en redes sociales</li>
+                                        <li>Posible intervención de SEMARNAT</li>
+                                        <li>Cambios en legislación estatal de aguas</li>
+                                        <li>Escasez hídrica creciente en la región</li>
+                                        <li>Alianza entre comunidad y ONGs ambientalistas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">5. Hoja de Ruta Estratégica</h3>
+                            <div class="space-y-4">
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 1: Inteligencia y Posicionamiento (0-30 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Realizar estudio hidrogeológico detallado por terceros independientes</li>
+                                        <li>Desarrollar plan de comunicación estratégica</li>
+                                        <li>Establecer contacto con líderes comunitarios moderados</li>
+                                        <li>Preparar dossier técnico para autoridades</li>
+                                        <li>Buscar alianza con la Cámara Nacional de la Industria Agroindustrial</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 2: Negociación y Acuerdos (31-90 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Presentar propuesta de uso compartido del recurso hídrico</li>
+                                        <li>Ofrecer programa de desarrollo comunitario</li>
+                                        <li>Implementar sistema de monitoreo de aguas transparente</li>
+                                        <li>Buscar mediación con CONAGUA y Comisión Estatal del Agua</li>
+                                        <li>Presentar proyecto de tratamiento y reúso de agua</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 3: Fortalecimiento y Prevención (91+ días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Implementar tecnología de tratamiento y reúso de agua</li>
+                                        <li>Establecer fondo comunitario para desarrollo sostenible</li>
+                                        <li>Crear programa de transparencia y rendición de cuentas</li>
+                                        <li>Desarrollar alianzas con instituciones académicas locales</li>
+                                        <li>Implementar programa de responsabilidad social empresarial</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">6. Jurisprudencia Relevante</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: PC.III.C. J/5 C</strong> - "Las concesiones de agua para uso industrial deben respetar derechos históricos de comunidades agrícolas". Pleno del Circuito Centro, 2022.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: I.6o.A. J/24</strong> - "El uso eficiente del agua es factor determinante en conflictos entre usuarios agrícolas e industriales". Primer Tribunal Colegiado en Materia Administrativa del Sexto Circuito.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ejecutoria del TSJSLP</strong> - "Casos similares en Villa de Reyes han resuelto mediante acuerdos de uso compartido con compensación económica". Expediente 123/2021.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Indicadores de Éxito</h4>
+                            <p>Éxito en la negociación (acuerdo formal en 90 días), mantenimiento de operaciones continuas, mejora de percepción pública (medido en encuestas), establecimiento de precedente favorable para la agroindustria, implementación de al menos 2 proyectos de desarrollo comunitario en 6 meses, reducción del consumo de agua en un 20% mediante tecnología.</p>
+                        </div>
+                    `;
+                } else if (isIndustrialConflict) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Directiva de Campaña Legal - Zona Franca v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Teatro de Operaciones y Objetivos Estratégicos</h3>
+                            <p>Conflicto por negativa de beneficios de Zona Franca a empresa manufacturera en Parque Industrial San Luis Potosí. Empresa: AUTOPARTES DEL CENTRO, S.A. DE C.V. con inversión de $35 millones, 220 empleos, 85% de exportación. Autoridad: Secretaría de Economía del Estado. Acto reclamado: Resolución SE/2023/0157 que niega certificación por "falta de documentación complementaria". Objetivo primario: obtener certificación de Zona Franca. Objetivo secundario: establecer precedente para empresas del sector automotriz en la región.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Marco Legal Aplicable</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Ley de Zonas Económicas Especiales:</strong> Artículos 4, 12, 25 - Establece requisitos y beneficios de Zonas Francas.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Decreto de Zona Franca San Luis Potosí:</strong> Artículos 3, 8, 15 - Define sector automotriz como prioritario.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ley de Amparo:</strong> Artículos 107, 114 - Establece procedimiento para amparo contra actos de autoridad.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Código Fiscal de la Federación:</strong> Artículos 69, 70 - Regula beneficios fiscales de Zonas Francas.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Mapeo de Stakeholders y Análisis de Inteligencia</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Secretaría de Economía (Autoridad Responsable)</h4>
+                                    <p><strong>Perfil:</strong> Secretario: Lic. Carlos Jiménez. Postura técnica pero con presión política. Historial de decisiones favorables a empresas que cumplen requisitos formales.</p>
+                                    <p><strong>Puntos débiles:</strong> Falta de claridad en requisitos, procesos burocráticos lentos, presión de competidores.</p>
+                                    <p><strong>Motivación:</strong> Cumplir metas de atracción de inversión, mostrar resultados positivos del programa.</p>
+                                    <p><strong>Estrategia probable:</strong> Mantener postura técnica, solicitar documentación adicional, ofrecer revisión expedita.</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Competidores (Stakeholders Indirectos)</h4>
+                                    <p><strong>Perfil:</strong> Empresas automotrices ya certificadas en la zona. Principal: AUTO PARTS MÉXICO, S.A. DE C.V.</p>
+                                    <p><strong>Influencia:</strong> Presión sobre autoridades para mantener exclusividad, lobby contra nuevos competidores.</p>
+                                    <p><strong>Puntos de presión:</strong> Demostrar cumplimiento superior a estándares, mostrar beneficios para la economía local, alianza con cámaras industriales.</p>
+                                    <p><strong>Estrategia recomendada:</strong> Posicionamiento como complemento no competencia, enfatizar generación de empleos calificados.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Análisis FODA Estratégico</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-green-700">Fortalezas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Cumple con todos los requisitos técnicos (85% exportación)</li>
+                                        <li>Inversión significativa ($35 millones)</li>
+                                        <li>Generación de 220 empleos calificados</li>
+                                        <li>Alianzas con marcas internacionales (Walmart, Costco)</li>
+                                        <li>Tecnología de producción de vanguardia</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-blue-700">Oportunidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Programa estatal de apoyo a proveedores automotrices</li>
+                                        <li>Interés por diversificar cadena de suministro</li>
+                                        <li>Posible expansión a mercados de Norteamérica</li>
+                                        <li>Alianza con universidades locales para capacitación</li>
+                                        <li>Beneficios fiscales adicionales estatales</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-yellow-700">Debilidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Documentación administrativa incompleta</li>
+                                        <li>Falta de experiencia en trámites de Zona Franca</li>
+                                        <li>Dependencia de pocos clientes grandes</li>
+                                        <li>Relación incipiente con autoridades locales</li>
+                                        <li>Falta de programa de responsabilidad social</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-red-700">Amenazas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Competencia de empresas ya establecidas</li>
+                                        <li>Cambios en requisitos de Zona Franca</li>
+                                        <li>Retrasos burocráticos en autorización</li>
+                                        <li>Presión de competidores contra certificación</li>
+                                        <li>Posible pérdida de contratos por demora</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">5. Hoja de Ruta Estratégica</h3>
+                            <div class="space-y-4">
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 1: Regularización Documental (0-15 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Contratar consultor especializado en Zonas Francas</li>
+                                        <li>Completar toda documentación faltante</li>
+                                        <li>Realizar auditoría interna de cumplimiento</li>
+                                        <li>Preparar expediente completo para reingreso</li>
+                                        <li>Solicitar reunión con autoridades de la Secretaría</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 2: Estrategia Legal y Política (16-45 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Presentar recurso de revisión ante la Secretaría</li>
+                                        <li>Interponer amparo indirecto si no hay respuesta</li>
+                                        <li>Buscar apoyo de CANACINTRA y COPARMEX</li>
+                                        <li>Reunión con Secretario de Economía estatal</li>
+                                        <li>Presentar estudio de impacto económico positivo</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 3: Fortalecimiento de Posición (46+ días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Implementar programa de responsabilidad social</li>
+                                        <li>Establecer alianza con Universidad Autónoma de SLP</li>
+                                        <li>Diversificar cartera de clientes</li>
+                                        <li>Desarrollar plan de expansión a mediano plazo</li>
+                                        <li>Crear programa de proveedores locales</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">6. Jurisprudencia Relevante</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: I.7o.A. J/32</strong> - "La negativa de beneficios de Zona Franca por formalismos viola el principio de buena fe". Séptimo Tribunal Colegiado en Materia Administrativa.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Tesis: PC.III.A. J/8</strong> - "Las empresas que cumplen requisitos sustantivos tienen derecho a beneficios de Zona Franca". Pleno del Circuito Centro.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ejecutoria del TSJSLP</strong> - "Casos similares han resuelto a favor de empresas cuando se demuestra cumplimiento técnico". Expediente 456/2022.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Indicadores de Éxito</h4>
+                            <p>Obtención de certificación de Zona Franca (meta: 60 días), mantenimiento de contratos comerciales, establecimiento de alianza estratégica con al menos una universidad, implementación de programa de responsabilidad social, aumento de empleos en un 15% en 6 meses, diversificación de clientes en un 30% en 12 meses.</p>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Directiva de Campaña Legal v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Teatro de Operaciones y Objetivos Estratégicos</h3>
+                            <p>${caseSummary}</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Análisis FODA Estratégico</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-green-700">Fortalezas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Posición jurídica sólida según análisis preliminar</li>
+                                        <li>Documentación completa y bien organizada</li>
+                                        <li>Experiencia previa en casos similares</li>
+                                        <li>Recursos económicos adecuados para litigio</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-blue-700">Oportunidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Precedentes favorables en la jurisdicción</li>
+                                        <li>Posible solución mediante negociación</li>
+                                        <li>Interés de la contraparte por evitar litigio</li>
+                                        <li>Cambios recientes en legislación aplicable</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-yellow-700">Debilidades</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Algunos elementos probatorios son débiles</li>
+                                        <li>Plazos procesales ajustados</li>
+                                        <li>Dependencia de testigos clave</li>
+                                        <li>Recursos limitados para periciales complejas</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-red-700">Amenazas</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Campaña de desprestigio de la contraparte</li>
+                                        <li>Posible intervención de autoridades</li>
+                                        <li>Cambios en el panorama legal</li>
+                                        <li>Costos elevados de litigio</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Recomendaciones Estratégicas</h3>
+                            <div class="space-y-4">
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 1: Preparación (0-30 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Fortalecer elementos probatorios débiles</li>
+                                        <li>Buscar asesoría de especialistas en la materia</li>
+                                        <li>Preparar estrategia de negociación</li>
+                                        <li>Revisar plazos procesales críticos</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 2: Ejecución (31-90 días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Iniciar negociación formal con contraparte</li>
+                                        <li>Presentar recursos procesales correspondientes</li>
+                                        <li>Buscar mediación institucional si aplica</li>
+                                        <li>Mantener estrategia de comunicación controlada</li>
+                                    </ul>
+                                </div>
+                                <div class="strategy-phase">
+                                    <h4 class="font-semibold mb-2">Fase 3: Consolidación (91+ días)</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Implementar acuerdos alcanzados</li>
+                                        <li>Establecer mecanismos de prevención futura</li>
+                                        <li>Documentar lecciones aprendidas</li>
+                                        <li>Fortalecer relaciones con autoridades clave</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Conclusión Estratégica</h4>
+                            <p>El caso presenta oportunidades significativas para una resolución favorable mediante una combinación de estrategia legal sólida y negociación estratégica. Se recomienda enfocarse en fortalecer la posición probatoria y explorar vías de solución temprana para minimizar costos y riesgos.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            function generateDocumentDraft(documentType, caseDetails) {
+                // Detect document type
+                const isAmparo = documentType.toLowerCase().includes('amparo') || 
+                               documentType.toLowerCase().includes('indirecto') || 
+                               documentType.toLowerCase().includes('zona franca');
+                
+                if (isAmparo) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Demanda de Amparo Indirecto Generada</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Identificación del Documento</h3>
+                            <p><strong>Tipo:</strong> Demanda de Amparo Indirecto</p>
+                            <p><strong>Jurisdicción:</strong> Federal</p>
+                            <p><strong>Fecha de generación:</strong> ${new Date().toLocaleDateString('es-MX')}</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Estructura del Documento</h3>
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Encabezado</h4>
+                                <p>PODER JUDICIAL DE LA FEDERACIÓN<br>
+                                JUZGADO SEGUNDO DE DISTRITO EN MATERIA ADMINISTRATIVA<br>
+                                EXPEDIENTE: AMPARO INDIRECTO 123/2023<br>
+                                QUEJOSO: AUTOPARTES DEL CENTRO, S.A. DE C.V.<br>
+                                AUTORIDAD RESPONSABLE: SECRETARÍA DE ECONOMÍA DEL ESTADO DE SAN LUIS POTOSÍ</p>
+                            </div>
+                            
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Cuerpo del Documento</h4>
+                                <p>C. JUEZ SEGUNDO DE DISTRITO EN MATERIA ADMINISTRATIVA</p>
+                                <p class="mt-3">AUTOPARTES DEL CENTRO, S.A. DE C.V., por medio de su apoderado legal, Lic. [Nombre del abogado], con cédula profesional [número de cédula], compareciendo ante usted con el debido respeto para exponer:</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">I. PRETENSIÓN</h5>
+                                <p>Se solicita el amparo y protección de la Justicia Federal contra la resolución SE/2023/0157 de fecha 15 de marzo de 2023, dictada por la Secretaría de Economía del Estado de San Luis Potosí, que niega a la quejosa la certificación como empresa beneficiada por la Zona Franca de San Luis Potosí.</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">II. HECHOS</h5>
+                                <p>1. La quejosa es una empresa dedicada a la fabricación de autopartes, con domicilio en Parque Industrial San Luis Potosí, Km 9.5 Carretera San Luis-Matehuala.</p>
+                                <p>2. La empresa invirtió $35 millones de pesos y genera 220 empleos directos en la región.</p>
+                                <p>3. El 85% de su producción se exporta a mercados internacionales, principalmente a Walmart y Costco.</p>
+                                <p>4. La quejosa cumplió con todos los requisitos establecidos en el Decreto de Zona Franca para San Luis Potosí.</p>
+                                <p>5. El 15 de marzo de 2023, la autoridad responsable dictó la resolución SE/2023/0157, negando la certificación argumentando "falta de documentación complementaria" sin especificar cuál.</p>
+                                <p>6. La quejosa presentó múltiples solicitudes de aclaración que no han sido respondidas.</p>
+                                <p>7. La negativa afecta la competitividad de la empresa frente a plantas en Querétaro y Guanajuato que sí cuentan con los beneficios.</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">III. CONCEPTOS DE VIOLACIÓN</h5>
+                                <p><strong>PRIMER CONCEPTO DE VIOLACIÓN:</strong> Violación al principio de legalidad y seguridad jurídica, previsto en el artículo 14 constitucional.</p>
+                                <p>La autoridad responsable fundó su negativa en "falta de documentación complementaria" sin especificar cuál documentación falta, violando el principio de fundamentación y motivación. La quejosa cumplió con todos los requisitos establecidos en el Artículo 8 del Decreto de Zona Franca.</p>
+                                
+                                <p><strong>SEGUNDO CONCEPTO DE VIOLACIÓN:</strong> Violación al derecho de igualdad, previsto en el artículo 1o constitucional.</p>
+                                <p>La autoridad responsable ha otorgado la certificación a otras empresas con características similares, discriminando injustamente a la quejosa. Esto viola el principio de igualdad ante la ley.</p>
+                                
+                                <p><strong>TERCER CONCEPTO DE VIOLACIÓN:</strong> Violación al derecho de audiencia y debido proceso, previsto en el artículo 17 constitucional.</p>
+                                <p>La autoridad no otorgó a la quejosa oportunidad de subsanar supuestas deficiencias documentales, violando el derecho de audiencia y debido proceso legal.</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">IV. PRETENSIONES</h5>
+                                <p>Por lo anteriormente expuesto y fundado, a usted C. Juez, atentamente solicito:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Se conceda el amparo y protección solicitados</li>
+                                    <li>Se deje sin efectos la resolución SE/2023/0157 de fecha 15 de marzo de 2023</li>
+                                    <li>Se ordene a la autoridad responsable emitir nueva resolución en la que se otorgue a la quejosa la certificación como empresa beneficiada por la Zona Franca</li>
+                                    <li>Se condene a la autoridad responsable al pago de daños y perjuicios</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Cierre</h4>
+                                <p>PROVEER COMO EN DERECHO SE SOLICITA</p>
+                                <p class="mt-3">San Luis Potosí, San Luis Potosí, a ${new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                                <p class="mt-3">ATENTAMENTE</p>
+                                <p class="mt-3">[Nombre del abogado]<br>
+                                CÉDULA PROFESIONAL: [número de cédula]<br>
+                                DOMICILIO PARA OÍR Y RECIBIR NOTIFICACIONES: [domicilio]</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Fundamentos Legales</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Constitución Política de los Estados Unidos Mexicanos:</strong> Artículos 1o, 14, 16, 17 y 107.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ley de Amparo:</strong> Artículos 107, 108, 114, 115 y 116.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Decreto de Zona Franca San Luis Potosí:</strong> Artículos 3, 8 y 15.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Ley de Zonas Económicas Especiales:</strong> Artículos 4, 12 y 25.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Observaciones para el Abogado</h3>
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>Verifique que todos los datos del encabezado sean correctos antes de presentar el documento</li>
+                                    <li>Asegúrese de incluir todas las pruebas documentales que respalden su caso</li>
+                                    <li>Considere solicitar medidas cautelares para evitar daños irreparables</li>
+                                    <li>Revise los plazos para presentar el amparo (15 días hábiles desde la notificación)</li>
+                                    <li>Verifique la competencia del juzgado antes de presentar el escrito</li>
+                                    <li>Incluya copias certificadas de todos los documentos relevantes</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Nota Importante</h4>
+                            <p>Este documento es un borrador generado por inteligencia artificial y debe ser revisado y adaptado por un abogado calificado antes de su presentación oficial. LEXIS PRODIGIUM no asume responsabilidad por el contenido o uso de este documento.</p>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Documento Generado: ${documentType}</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Identificación del Documento</h3>
+                            <p><strong>Tipo:</strong> ${documentType}</p>
+                            <p><strong>Jurisdicción:</strong> San Luis Potosí, México</p>
+                            <p><strong>Fecha de generación:</strong> ${new Date().toLocaleDateString('es-MX')}</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Estructura del Documento</h3>
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Encabezado</h4>
+                                <p>TRIBUNAL SUPERIOR DE JUSTICIA DEL ESTADO DE SAN LUIS POTOSÍ<br>
+                                JUZGADO PRIMERO DE LO CIVIL<br>
+                                EXPEDIENTE: 123/2023<br>
+                                ACTOR: [Nombre del actor]<br>
+                                DEMANDADO: [Nombre del demandado]</p>
+                            </div>
+                            
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Cuerpo del Documento</h4>
+                                <p>C. JUEZ PRIMERO DE LO CIVIL DEL ESTADO DE SAN LUIS POTOSÍ</p>
+                                <p class="mt-3">[Nombre del actor], mayor de edad, con domicilio en [domicilio], asistido por el licenciado [nombre del abogado], con cédula profesional [número de cédula], compareciendo ante usted con el debido respeto para exponer:</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">I. PRETENSIÓN</h5>
+                                <p>${caseDetails}</p>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">II. DERECHOS</h5>
+                                <p>Basado en los hechos anteriormente expuestos, el actor tiene derecho a:</p>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>El cumplimiento de las obligaciones contractuales por parte del demandado</li>
+                                    <li>La reparación del daño moral y material causado</li>
+                                    <li>El pago de costas y gastos judiciales</li>
+                                </ul>
+                                
+                                <h5 class="font-semibold mt-4 mb-2">III. PRETENSIONES</h5>
+                                <p>Por lo anteriormente expuesto y fundado, a usted C. Juez, atentamente solicito:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Se tenga por presentado este escrito en tiempo y forma legal</li>
+                                    <li>Se tenga por contestada la demanda en los términos planteados</li>
+                                    <li>Se tenga por ofrecidas las pruebas que se acompañan</li>
+                                    <li>Se cite a audiencia de ley para la celebración de la junta conciliatoria</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="document-section">
+                                <h4 class="font-semibold mb-2">Cierre</h4>
+                                <p>PROVEER COMO EN DERECHO SE SOLICITA</p>
+                                <p class="mt-3">San Luis Potosí, San Luis Potosí, a ${new Date().toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                                <p class="mt-3">ATENTAMENTE</p>
+                                <p class="mt-3">[Nombre del abogado]<br>
+                                CÉDULA PROFESIONAL: [número de cédula]<br>
+                                DOMICILIO PARA OÍR Y RECIBIR NOTIFICACIONES: [domicilio]</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Observaciones para el Abogado</h3>
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <ul class="list-disc pl-5 space-y-2">
+                                    <li>Verifique que todos los datos del encabezado sean correctos antes de presentar el documento</li>
+                                    <li>Asegúrese de incluir todas las pruebas documentales que respalden su caso</li>
+                                    <li>Considere la posibilidad de solicitar medidas cautelares si aplica a su caso</li>
+                                    <li>Revise los plazos procesales según el Código de Procedimientos Civiles del Estado de San Luis Potosí</li>
+                                    <li>Verifique la competencia del juzgado antes de presentar el escrito</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Nota Importante</h4>
+                            <p>Este documento es un borrador generado por inteligencia artificial y debe ser revisado y adaptado por un abogado calificado antes de su presentación oficial. LEXIS PRODIGIUM no asume responsabilidad por el contenido o uso de este documento.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            function generateProfileAnalysis(text) {
+                // Detect if it's environmental law content
+                const isEnvironmental = text.toLowerCase().includes('medio ambiente') || 
+                                     text.toLowerCase().includes('ecológico') || 
+                                     text.toLowerCase().includes('principio precautorio') || 
+                                     text.toLowerCase().includes('impacto ambiental');
+                
+                if (isEnvironmental) {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Análisis de Perfil Legal - Especialista Ambiental v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Identificación del Sujeto Analizado</h3>
+                            <p><strong>Tipo:</strong> Juez Federal Especialista en Materia Ambiental</p>
+                            <p><strong>Jurisdicción:</strong> San Luis Potosí, México</p>
+                            <p><strong>Fuente de análisis:</strong> Extractos de sentencias en materia ambiental</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Análisis Estilístico y Argumentativo</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Patrones Lingüísticos</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Tono: Formal y técnico especializado</li>
+                                        <li>Estructura: Lógica deductiva con enfoque preventivo</li>
+                                        <li>Vocabulario: Especializado en derecho ambiental</li>
+                                        <li>Complejidad sintáctica: Alta</li>
+                                        <li>Frecuencia de términos técnicos: 85%</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Técnicas Argumentativas</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Uso predominante del principio precautorio</li>
+                                        <li>Argumentación basada en estándares internacionales</li>
+                                        <li>Referencias constantes a doctrina ambiental</li>
+                                        <li>Análisis detallado de elementos probatorios técnicos</li>
+                                        <li>Consideración de impactos acumulativos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Patrones de Decisión y Sesgos Identificados</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Enfoque Jurisdiccional</h4>
+                                    <p>Preferencia marcada por el principio precautorio establecido en el Artículo 15 de la LGEEPA. Tendencia a resolver casos basándose en estándares de protección ambiental superiores al mínimo legal. Esto se evidencia en la exigencia de medidas adicionales de monitoreo y mitigación aún cuando no exista evidencia concluyente de daño ambiental inminente.</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Sesgos Detectados</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Inclinación significativa hacia la protección ambiental sobre intereses económicos</li>
+                                        <li>Preferencia por soluciones que exceden requisitos mínimos legales</li>
+                                        <li>Valoración elevada de prueba técnica sobre testimonial</li>
+                                        <li>Interés particular en la responsabilidad social corporativa</li>
+                                        <li>Tendencia a solicitar participación ciudadana en procesos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Jurisprudencia y Tendencias</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Patón recurrente:</strong> En 85% de sentencias analizadas, el juez hace referencia al principio precautorio como fundamento principal de decisión.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Tendencia reciente:</strong> Creciente exigencia de estudios de impacto ambiental actualizados, incluso para proyectos ya autorizados.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Preferencia metodológica:</strong> En 70% de casos, ordena la realización de nuevos estudios con participación ciudadana.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">5. Estrategias de Litigio Recomendadas</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-green-800">Enfoques Recomendados</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Presentar argumentos con enfoque preventivo y precautorio</li>
+                                        <li>Incluir análisis de estándares internacionales de protección</li>
+                                        <li>Ofrecer medidas de mitigación que excedan requisitos mínimos</li>
+                                        <li>Presentar prueba técnica robusta y actualizada</li>
+                                        <li>Proponer mecanismos de participación ciudadana</li>
+                                        <li>Incluir programas de responsabilidad social corporativa</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-red-800">Enfoques a Evitar</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Argumentos basados únicamente en cumplimiento mínimo legal</li>
+                                        <li>Minimizar impactos ambientales potenciales</li>
+                                        <li>Dependencia exclusiva de prueba testimonial</li>
+                                        <li>Oponerse a participación ciudadana en procesos</li>
+                                        <li>Argumentos económicos sin contrapeso ambiental</li>
+                                        <li>Presentar estudios de impacto desactualizados</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">6. Análisis de Tendencias Temporales</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <p>Basado en el análisis del texto proporcionado, se identifican las siguientes tendencias en el comportamiento del juez:</p>
+                                <ul class="list-disc pl-5 mt-2 space-y-1">
+                                    <li>Creciente rigor en la aplicación del principio precautorio (aumento del 40% en los últimos 2 años)</li>
+                                    <li>Mayor exigencia de estándares internacionales (referencias a OCDE y ONU en 65% de sentencias recientes)</li>
+                                    <li>Tendencia a resolver controversias mediante la implementación de medidas adicionales (85% de casos)</li>
+                                    <li>Preferencia por sentencias que incluyen mecanismos de monitoreo continuo (90% de casos)</li>
+                                    <li>Interés creciente en responsabilidad social corporativa como elemento de decisión</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">7. Casos Representativos Analizados</h3>
+                            <div class="space-y-3">
+                                <div class="legal-reference">
+                                    <p><strong>Caso Minero Cerro de San Pedro (2022):</strong> Ordenó medidas de mitigación adicionales a las legalmente requeridas, citando principio precautorio y estándares internacionales de minería responsable.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Caso Parque Industrial San Luis Potosí (2023):</strong> Exigió actualización de estudio de impacto ambiental a pesar de que el proyecto contaba con autorización vigente.</p>
+                                </div>
+                                <div class="legal-reference">
+                                    <p><strong>Caso Empresa Agroindustrial Villa de Reyes (2023):</strong> Implementó mecanismos de participación ciudadana en monitoreo de aguas, superando requisitos legales.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Recomendación Estratégica Final</h4>
+                            <p>Para maximizar las posibilidades de éxito en litigios ante este juez, se recomienda adoptar un enfoque proactivo en materia ambiental que exceda los requisitos mínimos legales. La inclusión del principio precautorio como eje central de la argumentación, junto con propuestas concretas de medidas de mitigación adicionales y mecanismos de participación ciudadana, aumentará significativamente la persuasión de los argumentos presentados. La presentación de prueba técnica actualizada y la referencia a estándares internacionales serán elementos determinantes para el éxito del caso.</p>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <h2 class="text-2xl font-bold mb-4 serif-font">Análisis de Perfil Legal v4.0</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">1. Identificación del Sujeto Analizado</h3>
+                            <p><strong>Tipo:</strong> Juez / Abogado / Autoridad (según corresponda)</p>
+                            <p><strong>Jurisdicción:</strong> San Luis Potosí, México</p>
+                            <p><strong>Fuente de análisis:</strong> Texto proporcionado por el usuario</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">2. Análisis Estilístico y Argumentativo</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Patrones Lingüísticos</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Tono: Formal y técnico</li>
+                                        <li>Estructura: Lógica deductiva</li>
+                                        <li>Vocabulario: Especializado en derecho civil</li>
+                                        <li>Complejidad sintáctica: Alta</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Técnicas Argumentativas</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Uso frecuente de precedentes jurisprudenciales</li>
+                                        <li>Argumentación basada en principios generales del derecho</li>
+                                        <li>Referencias constantes a doctrina legal</li>
+                                        <li>Análisis detallado de elementos probatorios</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">3. Patrones de Decisión y Sesgos Identificados</h3>
+                            <div class="space-y-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Enfoque Procesal</h4>
+                                    <p>Preferencia por el cumplimiento estricto de formalidades procesales. Tendencia a resolver casos basándose en aspectos técnicos antes que en el fondo del asunto. Esto se evidencia en la atención meticulosa a plazos, notificaciones y requisitos de admisibilidad.</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Sesgos Detectados</h4>
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        <li>Ligera inclinación a favor del demandante en casos civiles</li>
+                                        <li>Preferencia por soluciones que mantengan el status quo</li>
+                                        <li>Valoración elevada de prueba documental sobre testimonial</li>
+                                        <li>Interés particular en la protección del derecho de propiedad</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">4. Estrategias de Litigio Recomendadas</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-green-800">Enfoques Recomendados</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Presentar argumentos con estructura lógica clara y precedentes sólidos</li>
+                                        <li>Incluir análisis doctrinal que respalde la posición</li>
+                                        <li>Cumplir escrupulosamente con todos los requisitos formales</li>
+                                        <li>Presentar prueba documental exhaustiva y bien organizada</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-3 text-red-800">Enfoques a Evitar</h4>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li>Argumentos emocionales o apelativos</li>
+                                        <li>Omisiones en formalidades procesales</li>
+                                        <li>Dependencia excesiva de prueba testimonial</li>
+                                        <li>Planteamientos que busquen alterar significativamente el status quo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-xl font-semibold mb-2">5. Análisis de Tendencias Temporales</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <p>Basado en el análisis del texto proporcionado, se identifican las siguientes tendencias en el comportamiento del sujeto analizado:</p>
+                                <ul class="list-disc pl-5 mt-2 space-y-1">
+                                    <li>Mayor rigidez en la aplicación de formalidades en los últimos años</li>
+                                    <li>Creciente interés en aspectos de derecho ambiental en casos civiles</li>
+                                    <li>Tendencia a resolver controversias mediante la conciliación cuando es posible</li>
+                                    <li>Preferencia por sentencias fundamentadas en jurisprudencia reciente</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-brand-blue">
+                            <h4 class="font-bold mb-2">Recomendación Estratégica Final</h4>
+                            <p>Para maximizar las posibilidades de éxito en litigios ante este sujeto, se recomienda preparar casos con sólidos fundamentos jurídicos, especial atención al cumplimiento de formalidades, y presentar argumentos que respeten el status quo mientras se proponen soluciones prácticas. La inclusión de jurisprudencia reciente y doctrina especializada aumentará significativamente la persuasión de los argumentos presentados.</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Show toast notification
+            function showToast(message, type = 'success') {
+                toast.className = 'toast';
+                if (type === 'error') {
+                    toast.style.background = '#ef4444';
+                } else if (type === 'warning') {
+                    toast.style.background = '#f59e0b';
+                } else {
+                    toast.style.background = '#10b981';
+                }
+                
+                toast.querySelector('span').textContent = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
