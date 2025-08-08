@@ -1,18 +1,9 @@
 // New function for processing legal citations
-function readFileContent(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.onerror = (e) => reject(e);
-        reader.readAsText(file);
-    });
-}
-
 function processLegalCitations(htmlString) {
     // This regex attempts to find common legal citation patterns.
     // It looks for "Artículo", "Art.", "Ley", "Código", "Constitución" followed by
     // numbers, names, or combinations.
-        const citationRegex = /(Artículo|Art\.|Ley|Código|Constitución)\s+(\d+\s*(?:bis)?(?:\s+al\s+\d+)?(?:\s+de\s+la)?(?:\s+del)?(?:\s+de)?\s+[A-Z][\w\s\d\.]*?(?:\s+de\s+\d{4})?)/gi;
+    const citationRegex = /(Artículo|Art\.|Ley|Código|Constitución)\s+(\d+\s*(?:bis)?(?:(?:\s+al\s+\d+)?(?:\s+de\s+la)?(?:\s+del)?(?:\s+de)?\s+[A-Z][\w\s\d\.]*?)(?:\s+de\s+\d{4})?)/gi;
 
     return htmlString.replace(citationRegex, (match, p1, p2) => {
         const fullCitation = `${p1} ${p2}`.trim();
@@ -27,7 +18,6 @@ function processLegalCitations(htmlString) {
 document.addEventListener('DOMContentLoaded', () => {
     // --- Constantes y Variables ---
     const API_URL = '/api/proxy';
-    
     let isLoading = false;
 
     // --- Selectores de Elementos ---
@@ -39,22 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessage = document.getElementById('error-message');
     const resultActions = document.getElementById('result-actions'); // Nuevo selector para los botones de acción
 
-    // Habilitar todos los botones al cargar la página
-    allButtons.forEach(btn => {
-        btn.disabled = false;
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    });
-
     // --- Funciones Principales ---
 
-    // Habilitar todos los botones al cargar la página
-    allButtons.forEach(btn => {
-        btn.disabled = false;
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    });
-
     // Llama a la API con una consulta
-    const callApi = async (query, context = '', type) => {
+    const callApi = async (type, query, context = '') => {
         if (isLoading) return; // Previene llamadas duplicadas
         isLoading = true;
 
@@ -69,15 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query, context, type }),
+                body: JSON.stringify({ type, query, context }),
             });
-
-            // Obtener los usos restantes de la cabecera
-            // Ya no es necesario, la demo es ilimitada
-            // const remainingUsesHeader = response.headers.get('X-Usage-Remaining');
-            // if (remainingUsesHeader !== null) {
-            //     updateUsageUI(parseInt(remainingUsesHeader, 10));
-            // }
 
             const data = await response.json();
 
@@ -92,21 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultcontent.innerHTML = processedHtml; 
             resultcontent.classList.remove('hidden'); 
             resultActions.classList.remove('hidden'); 
-
-            // Mostrar fuentes RAG si existen
-            const sourcesContainer = document.getElementById('sources-container');
-            const sourcesList = document.getElementById('sources-list');
-            if (data.sources && data.sources.length > 0) {
-                sourcesList.innerHTML = ''; // Clear previous sources
-                data.sources.forEach(source => {
-                    const li = document.createElement('li');
-                    li.textContent = source;
-                    sourcesList.appendChild(li);
-                });
-                sourcesContainer.classList.remove('hidden');
-            } else {
-                sourcesContainer.classList.add('hidden');
-            } 
 
             // Mostrar mensaje de ahorro de tiempo
             const timeSavingMessage = document.getElementById('time-saving-message');
@@ -153,12 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
             resultcontent.classList.add('hidden');
             resultActions.classList.add('hidden');
             document.getElementById('time-saving-message').classList.add('hidden'); // Ocultar mensaje de ahorro de tiempo
-            document.getElementById('sources-container').classList.add('hidden'); // Ocultar contenedor de fuentes
 
             // 4. Set the correct active section and nav item
-            console.log('Clicked nav item:', demoId); // Debugging
             document.querySelectorAll('.demo-section').forEach(section => {
-                console.log('Processing section:', section.id, 'Is active:', section.id === `demo-${demoId}`); // Debugging
                 section.classList.toggle('active', section.id === `demo-${demoId}`);
             });
 
@@ -166,100 +119,34 @@ document.addEventListener('DOMContentLoaded', () => {
             e.currentTarget.classList.add('bg-brand-blue-600');
         });
     });
-    console.log('Navigation event listeners attached.'); // Debugging
 
     // --- Asignación de Eventos a Botones ---
-    document.getElementById('run-contratos').addEventListener('click', async () => {
-        const textAreaContext = document.getElementById('contratos-context').value;
-        const fileInput = document.getElementById('contratos-file');
-        console.log('fileInput for contratos:', fileInput); // NEW DEBUG LOG
-        let context = textAreaContext;
-
-        if (fileInput && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            if (file.type === 'text/plain') {
-                context = await readFileContent(file);
-            } else {
-                // For PDF/DOCX, we'll need backend processing. For now, just indicate.
-                context = `[CONTENIDO DE ARCHIVO ${file.name} - REQUIERE PROCESAMIENTO EN BACKEND]`;
-                alert('La carga de archivos PDF/DOCX requiere procesamiento en el servidor. Por favor, pegue el texto directamente por ahora.');
-                return; // Prevent API call for unsupported file types in demo
-            }
-        }
-
+    document.getElementById('run-contratos').addEventListener('click', () => {
+        const context = document.getElementById('contratos-context').value;
         if (context) {
-            callApi(context, '', 'contratos');
+            callApi('contratos', context);
         }
     });
 
-    document.getElementById('run-strategy').addEventListener('click', async () => {
-        console.log('Clicked Analizar Estrategia button.'); // Debugging
-        const textAreaContext = document.getElementById('strategy-context').value;
-        const fileInput = document.getElementById('strategy-file');
-        console.log('fileInput for strategy:', fileInput); // NEW DEBUG LOG
-        let context = textAreaContext;
-
-        if (fileInput && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            if (file.type === 'text/plain') {
-                context = await readFileContent(file);
-            } else {
-                context = `[CONTENIDO DE ARCHIVO ${file.name} - REQUIERE PROCESAMIENTO EN BACKEND]`;
-                alert('La carga de archivos PDF/DOCX requiere procesamiento en el servidor. Por favor, pegue el texto directamente por ahora.');
-                return;
-            }
-        }
-
+    document.getElementById('run-strategy').addEventListener('click', () => {
+        const context = document.getElementById('strategy-context').value;
         if (context) {
-            callApi(context, '', 'strategy');
+            callApi('strategy', context);
         }
     });
 
-    document.getElementById('run-document').addEventListener('click', async () => {
-        console.log('Clicked Generar Documento button.'); // Debugging
+    document.getElementById('run-document').addEventListener('click', () => {
         const query = document.getElementById('document-query').value;
-        const textAreaContext = document.getElementById('document-context').value;
-        const fileInput = document.getElementById('document-file');
-        console.log('fileInput for document:', fileInput); // NEW DEBUG LOG
-        let context = textAreaContext;
-
-        if (fileInput && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            if (file.type === 'text/plain') {
-                context = await readFileContent(file);
-            } else {
-                // For PDF/DOCX, we'll need backend processing. For now, just indicate.
-                context = `[CONTENIDO DE ARCHIVO ${file.name} - REQUIERE PROCESAMIENTO EN BACKEND]`;
-                alert('La carga de archivos PDF/DOCX requiere procesamiento en el servidor. Por favor, pegue el texto directamente por ahora.');
-                return;
-            }
-        }
-
+        const context = document.getElementById('document-context').value;
         if (query && context) {
-            callApi(query, context, 'document');
+            callApi('document', query, context);
         }
     });
 
-    document.getElementById('run-perfiles').addEventListener('click', async () => {
-        console.log('Clicked Generar Perfil button.'); // Debugging
-        const textAreaContext = document.getElementById('perfiles-context').value;
-        const fileInput = document.getElementById('perfiles-file');
-        console.log('fileInput for perfiles:', fileInput); // NEW DEBUG LOG
-        let context = textAreaContext;
-
-        if (fileInput && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            if (file.type === 'text/plain') {
-                context = await readFileContent(file);
-            } else {
-                context = `[CONTENIDO DE ARCHIVO ${file.name} - REQUIERE PROCESAMIENTO EN BACKEND]`;
-                alert('La carga de archivos PDF/DOCX requiere procesamiento en el servidor. Por favor, pegue el texto directamente por ahora.');
-                return;
-            }
-        }
-
+    document.getElementById('run-perfiles').addEventListener('click', () => {
+        const context = document.getElementById('perfiles-context').value;
         if (context) {
-            callApi(context, '', 'perfiles');
+            callApi('perfiles', context);
         }
     });
 
@@ -301,5 +188,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-    // --- Inicialización ---
 });
